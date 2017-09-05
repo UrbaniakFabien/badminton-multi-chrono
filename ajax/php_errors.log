@@ -1,0 +1,1 @@
+[11-Dec-2013 08:09:26 Europe/London] PHP Fatal error:  Call to undefined function mysq_query() in F:\UniServer\www\multi_tournoi\ajax\majliste.5.php on line 46

@@ -1,0 +1,189 @@
+/*******************************************************
+ * Css pour les terrains dans multi_chrono  avec �ch�ancier
+ * *****************************************************/ 
+
+
+.draggableh { width: 90px ; 
+              height: 90px ;
+              padding: 0.5em; 
+              float: left; 
+              margin: 0 10px 10px 0;  
+              background-image:url('images/terrain1.gif');
+              background-repeat:no-repeat;
+              background-position:center;
+              background-size : 100% auto;   
+}  
+
+
+
+.draggablev { width: 90px ; 
+              height: 125px ;
+              padding: 0.5em; 
+              float: left; 
+              margin: 0 10px 10px 0;  
+              background-image:url('images/terrainv.gif');
+              background-repeat:no-repeat;
+              background-position: center center; 
+              background-size : auto 60%;                 
+}
+/* Crack pour IE */
+*html .draggableh { 
+    width: 110px;
+    height: 110px;
+}
+*html .draggablev {width : 110px;
+                   height : 140px;
+}
+.centre_texte_h {
+    position:absolute;
+    height:20px;
+    width:60px;
+    left:46px;
+    top:45px;             
+}
+.centre_texte_v {  
+    position:absolute;
+    height:20px;
+    width:60px;
+    left:47px;
+    top:61px;          
+}
+.bouton_h {
+    position:absolute;
+    height:20px;
+    width:60px;
+    left:1px;
+    bottom:7px;
+    display:block;
+}
+.bouton_v {
+    position:absolute;
+    height:20px;
+    width:60px;
+    left:1px;
+    bottom:7px;
+}
+.temps_h{
+    position:absolute;
+    float:right;
+    /*top:78px;*/
+    display:block;
+    font-size:10px;
+    right:3px;
+    bottom:3px;
+
+}
+.temps_h:hover{
+    cursor:pointer;
+}
+.temps_v{
+    position:absolute;
+    float:right;
+    /*top:112px;*/
+    font-size:10px;
+    right:3px;
+    bottom:3px;
+
+}
+.temps_v:hover{
+    cursor:pointer;
+}
+.match_h {
+    position:absolute;
+    left:3px;
+}
+.match {
+    width:35px;
+    position:absolute;
+}
+
+.fin_h {
+    position:absolute;
+    right:3px;
+    font-size:16px;
+}
+.fin_h:hover {
+    cursor:pointer;
+}
+
+.go {
+    background-color:rgb(255,0,0);     /* match en cours sur le terrain */
+}
+.stop {
+    background-color:rgb(51,204,0);   /* pas de match sur le terrain */
+}
+.orange {
+    background-color:orange;
+}
+.neutralise {
+    background-color:#A7BDE9;
+}
+#salle {
+    height:50%;
+    width:100%;
+    border-style:solid;
+    border-width:thin;
+    overflow-x: hidden; 
+    overflow-y: scroll;
+    background-color:white;
+
+}
+#contenaire_echeancier {
+    height:50%;
+    width:100%;
+    border-style:solid;
+    border-width:thin;
+
+}
+/* Parametrage particulier pour terrains verouillés */
+.ui-state-disabled {
+    opacity:1;
+    filter:Alpha(Opacity=100);
+}
+
+/* etat des joueurs */
+/* Joueur en attente */
+.etat_j_0  {color:black;
+            font-size:10px;
+}
+/* joueur present */
+.etat_j_1  {color:#00CE00;
+            font-size:10px;
+} 
+/* joueur WO */              
+.etat_j_2  {color:red;
+            font-size:10px;
+}
+/* joueur en absence autorisée*/              
+.etat_j_3  {color:orange;
+            font-size:10px;
+}
+
+@font-face {  
+    font-family: "digital";  
+    src: url( fonts/digitaldreamfat.eot ); /* IE */  
+    src: local("DIGITALDREAMFAT"), url( fonts/DIGITALDREAMFAT.ttf ) format("truetype"); /* non-IE */  
+}  
+
+/* THEN use like you would any other font */  
+.temps_h, .temps_v, #horloge { 
+    font-family:"digital", verdana, helvetica, sans-serif;
+
+}
+/* pouce levé si tous joueurs  du match présents 
+   pouce baissé sinon */ 
+.pouce_baisse {
+    background-image:url('images/pouce_baisse.png');			  
+} 
+.pouce_leve {
+    background-image:url('images/pouce_leve.png');	  
+}             
+.pouce { right:10px;
+         bottom:12px;
+         height:20px;
+         width:20px;
+         background-repeat:no-repeat;
+         background-position:center;
+         background-size : 100% auto;
+         position:absolute;
+}

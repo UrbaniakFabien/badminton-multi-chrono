@@ -1,0 +1,77 @@
+Ville : Aubusson;Nom du responsable :  ;Tél. personnel : 
+Nom du Club : Badminton Club Aubusson;;Tél. professionnel : 
+Sigle club : BCA; ;
+Nom;Sigle club;Sexe;Classt;Tableau Choisi;Date;Simple;Double;Partenaire double;Mixte;Partenaire mixte;Inscription;Observation
+GALLOIS Julien;BCA;M;P11/D9/P10;-/série 2/série 3;13/5/2017;;LA;AVIGNON Alain (P10/D8/D8);LA;LONGY Véronique (P10/D8/D9);0,00 €;
+LONGY Véronique;BCA;F;P10/D8/D9;-/1/série 3;13/5/2017;;LA;LAGRANGE Corinne (D9/D7/D8);LA;GALLOIS Julien (P11/D9/P10);0,00 €;
+Nombre de joueurs : 2;Total inscription : 0 €;Déjà réglé : 0 €;
+
+Ville : Brive-la-Gaillarde;Nom du responsable :  ;Tél. personnel : 
+Nom du Club : Badminton Briviste;;Tél. professionnel : 
+Sigle club : BB; ;
+Nom;Sigle club;Sexe;Classt;Tableau Choisi;Date;Simple;Double;Partenaire double;Mixte;Partenaire mixte;Inscription;Observation
+BARRE Emilie;BB;F;D9/D7/D7;-/1/-;13/5/2017;;LA;COURTEAUD Nathalie (D9/D7/D9);;;0,00 €;
+BLANZAT Nicolas;BB;M;NC/NC/NC;-/-/série 4;13/5/2017;;;;LA;LABARTHE Emilie (P10);0,00 €;
+BONELLI Fabien;BB;M;P12/P11/P11;-/série 5/-;13/5/2017;;LA;FORGERIT Alexandre (P12);;;0,00 €;
+CHAUMEIL Patricia;BB;F;NC/NC/NC;-/-/série 6;13/5/2017;;;;LA;FORGERIT Alexandre (P12);0,00 €;
+COURTEAUD Nathalie;BB;F;D9/D7/D9;-/1/-;13/5/2017;;LA;BARRE Emilie (D9/D7/D7);;;0,00 €;
+DAUBENFELD Claire;BB;F;P11/P12/P10;-/série 4/-;13/5/2017;;LA;LABARTHE Emilie (P10);;;0,00 €;
+FORGERIT Alexandre;BB;M;P12/P12/P12;-/série 5/série 6;13/5/2017;;LA;BONELLI Fabien (P12/P11/P11);LA;CHAUMEIL Patricia (NC);0,00 €;
+GERARD Olivier;BB;M;P12/P10/P10;-/série 4/-;13/5/2017;;LA;PAGES Julien (P11/P10/P10);;;0,00 €;
+LABARTHE Emilie;BB;F;P10/P10/P10;-/série 4/série 4;13/5/2017;;LA;DAUBENFELD Claire (P11/P12/P10);LA;BLANZAT Nicolas (NC);0,00 €;
+MONZAT Camille;BB;F;P10/D8/P10;-/-/série 4;13/5/2017;;;;LA;PAGES Julien (P11/P10/P10);0,00 €;
+PAGES Julien;BB;M;P11/P10/P10;-/série 4/série 4;13/5/2017;;LA;GERARD Olivier (P12/P10/P10);LA;MONZAT Camille (P10/D8/P10);0,00 €;
+Nombre de joueurs : 11;Total inscription : 0 €;Déjà réglé : 0 €;
+
+Ville : Gramat;Nom du responsable :  ;Tél. personnel : 
+Nom du Club : Asso. Culture Et Loisirs Gramat;;Tél. professionnel : 
+Sigle club : ACL; ;
+Nom;Sigle club;Sexe;Classt;Tableau Choisi;Date;Simple;Double;Partenaire double;Mixte;Partenaire mixte;Inscription;Observation
+DEBABECHE Serge;ACL;M;P12/P10/P11;-/-/série 2;13/5/2017;;;;LA;AUBERTIN Nadine (P10/D9/D8);0,00 €;
+Nombre de joueurs : 1;Total inscription : 0 €;Déjà réglé : 0 €;
+
+Ville : Sainte-Feyre;Nom du responsable :  ;Tél. personnel : 
+Nom du Club : Badminton Club Ste Feyre;;Tél. professionnel : 
+Sigle club : BCSF; ;
+Nom;Sigle club;Sexe;Classt;Tableau Choisi;Date;Simple;Double;Partenaire double;Mixte;Partenaire mixte;Inscription;Observation
+AVIGNON Alain;BCSF;M;P10/D8/D8;-/série 2/série 2;13/5/2017;;LA;GALLOIS Julien (P11/D9/P10);LA;LAGRANGE Corinne (D9/D7/D8);0,00 €;
+LAGRANGE Corinne;BCSF;F;D9/D7/D8;-/1/série 2;13/5/2017;;LA;LONGY Véronique (P10/D8/D9);LA;AVIGNON Alain (P10/D8/D8);0,00 €;
+Nombre de joueurs : 2;Total inscription : 0 €;Déjà réglé : 0 €;
+
+Ville : Souillac;Nom du responsable :  ;Tél. personnel : 
+Nom du Club : Athlé 46 Badminton Souillac;;Tél. professionnel : 
+Sigle club : ABS; ;
+Nom;Sigle club;Sexe;Classt;Tableau Choisi;Date;Simple;Double;Partenaire double;Mixte;Partenaire mixte;Inscription;Observation
+AUBERTIN Nadine;ABS;F;P10/D9/D8;-/série 3/série 2;13/5/2017;;LA;COLLETTE Céline (P11/D9/D9);LA;DEBABECHE Serge (P12/P10/P11);0,00 €;
+CARPENTIER Gil;ABS;M;P10/D8/D9;-/1/série 2;13/5/2017;;LA;WITTIG Pascal (D9/D7/D8);LA;GARCIA Anais (P10/D8/D8);0,00 €;
+CLAVEL Audrey;ABS;F;D8/R6/D8;-/-/série 2;13/5/2017;;;;LA;WITTIG Pascal (D9/D7/D8);0,00 €;
+COLLETTE Céline;ABS;F;P11/D9/D9;-/série 3/série 3;13/5/2017;;LA;AUBERTIN Nadine (P10/D9/D8);LA;TEJERO Loïs (D8/D9/D9);0,00 €;
+GARCIA Anais;ABS;F;P10/D8/D8;-/série 2/série 2;13/5/2017;;LA;;LA;CARPENTIER Gil (P10/D8/D9);0,00 €;
+HOENIG Kylian;ABS;M;P10/D8/P10;-/série 2/série 4;13/5/2017;;LA;TEJERO Loïs (D8/D9/D9);LA;;0,00 €;
+TEJERO Loïs;ABS;M;D8/D9/D9;-/série 2/série 3;13/5/2017;;LA;HOENIG Kylian (P10/D8/P10);LA;COLLETTE Céline (P11/D9/D9);0,00 €;
+WITTIG Pascal;ABS;M;D9/D7/D8;-/1/série 2;13/5/2017;;LA;CARPENTIER Gil (P10/D8/D9);LA;CLAVEL Audrey (D8/R6/D8);0,00 €;
+Nombre de joueurs : 8;Total inscription : 0 €;Déjà réglé : 0 €;
+
+Ville : Tulle;Nom du responsable :  ;Tél. personnel : 
+Nom du Club : Les Fous Du Volant Tulle;;Tél. professionnel : 
+Sigle club : LFDV; ;
+Nom;Sigle club;Sexe;Classt;Tableau Choisi;Date;Simple;Double;Partenaire double;Mixte;Partenaire mixte;Inscription;Observation
+AULIAC Yvan;LFDV;M;P11/D9/P11;-/série 3/-;13/5/2017;;LA;PICOU Fabien (P12/P11/P11);;;0,00 €;
+BILLARD Virginie;LFDV;F;P12/P11/P11;-/série 5/série 5;13/5/2017;;LA;ROBIN Marion (P11/P11/D9);LA;PICOU Fabien (P12/P11/P11);0,00 €;
+BOUJU Romain;LFDV;M;P10/D8/D9;-/série 2/série 3;13/5/2017;;LA;DUPRE Benoit (P11/P10/P10);LA;ROBIN Marion (P11/P11/D9);0,00 €;
+DUPRE Benoit;LFDV;M;P11/P10/P10;-/série 2/-;13/5/2017;;LA;BOUJU Romain (P10/D8/D9);;;0,00 €;
+FAVENNEC Clément;LFDV;M;P10/P12/P12;-/série 5/série 5;13/5/2017;;LA;MERPILLAT Jean-paul (P12/P11/P11);LA;LEBAS Annick (P12/P12/P11);0,00 €;
+LEBAS Annick;LFDV;F;P12/P12/P11;-/série 6/série 5;13/5/2017;;LA;;LA;FAVENNEC Clément (P10/P12/P12);0,00 €;
+MERPILLAT Jean-paul;LFDV;M;P12/P11/P11;-/série 5/série 5;13/5/2017;;LA;FAVENNEC Clément (P10/P12/P12);LA;;0,00 €;
+PICOU Fabien;LFDV;M;P12/P11/P11;-/série 3/série 5;13/5/2017;;LA;AULIAC Yvan (P11/D9/P11);LA;BILLARD Virginie (P12/P11/P11);0,00 €;
+ROBIN Marion;LFDV;F;P11/P11/D9;-/série 5/série 3;13/5/2017;;LA;BILLARD Virginie (P12/P11/P11);LA;BOUJU Romain (P10/D8/D9);0,00 €;
+Nombre de joueurs : 9;Total inscription : 0 €;Déjà réglé : 0 €;
+
+Ville : Uzerche;Nom du responsable :  ;Tél. personnel : 
+Nom du Club : Badminton Associatif Uzerchois;;Tél. professionnel : 
+Sigle club : BADAU; ;
+Nom;Sigle club;Sexe;Classt;Tableau Choisi;Date;Simple;Double;Partenaire double;Mixte;Partenaire mixte;Inscription;Observation
+PIGNOL Céline;BADAU;F;D8/P10/P10;-/-/série 4;13/5/2017;;;;LA;RODRIGUES Gabriel (P11/P12/P10);0,00 €;
+RODRIGUES Gabriel;BADAU;M;P11/P12/P10;-/-/série 4;13/5/2017;;;;LA;PIGNOL Céline (D8/P10/P10);0,00 €;
+Nombre de joueurs : 2;Total inscription : 0 €;Déjà réglé : 0 €;
+

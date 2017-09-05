@@ -1,0 +1,85 @@
+.Couleur_texte { background-color:#f7f7f7;color:#f7f7f7;}
+.MX_D7_R6 { background-color:#c3f0ce;color:#f7f7f7;}
+.MX_D9_D8 { background-color:#b171ce;color:#f7f7f7;}
+.MX_P { background-color:#93965e;color:#f7f7f7;}
+.PAUSE { background-color:#DCDCDC;color:#f7f7f7;}
+.SD_D9_D8 { background-color:#515d4f;color:#f7f7f7;}
+.SD_P { background-color:#7e8553;color:#f7f7f7;}
+.SD_R5_R4 { background-color:#0b60b3;color:#f7f7f7;}
+.SH_D7_R6 { background-color:#525ac4;color:#f7f7f7;}
+.SH_D9_D8 { background-color:#862103;color:#f7f7f7;}
+.SH_P { background-color:#6e5600;color:#f7f7f7;}
+.SH_R5_R4 { background-color:#ebc8f2;color:#f7f7f7;}
+
+                          #echeancier td {
+                            width:180px;
+                            font-weight : bold;
+                           
+                            border-style:solid;
+                            border-width:thin;
+                            border-color:grey;
+                            text-align:center;
+                            border-radius : 10px;
+                          }
+                          #echeancier {
+                                      width:100%;
+                                      }
+                          .num_match {
+                            width:30px;
+                            background:transparent;
+                            font-weight : bold;
+                            color:white;
+                            border-style:hidden;
+                            font-style: century gothic;
+                            font-size: 16px;
+                          }
+                          .PAUSE {
+                                  background-color:#DCDCDC;
+                                  font-style:italic;
+                                 }
+                          #echeancier .horaire {
+                            width:60px;
+                            text-align:center;
+                            background-color:#CCFFFF ;
+                            color:black;
+                          }
+                .etat_1 {
+          background-color: #90EE90; 
+          color:red;     
+          
+}
+.etat_2 {
+          background-color: #FF7F50;
+          text-decoration:line-through;
+          background-image:url('images/stripetranspar.png');
+          color:white;
+      
+}
+.etat_3 {
+          text-decoration:line-through;
+          background-image:url('images/WO.png');
+          background-repeat:no-repeat;
+          background-position:center;
+          background-size: 90px;
+          color:white;
+      
+}
+.aucun {
+         background-color:LightGray;
+}
+.titre {
+  font-style:bold; 
+  texte-decoration:underline;
+  background-color:red;
+}
+@media print {
+button {
+display:none;}
+input {
+display:none;}
+.terrain {
+display:none;
+}
+}
+                          
+                          

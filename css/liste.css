@@ -1,0 +1,64 @@
+/* CSS Document 
+Mise en forme de la liste de pointage
+*/
+
+#liste {
+  border-collapse:collapse;
+  width:100%;
+}
+#liste td { 
+  border-width:1px;
+  border-style:solid;
+  border-color:#29aaff;
+  padding-left:5px;
+  padding-right:5px;
+  font-size : 12px;
+
+ 
+ }
+
+span.fg-button:hover {
+  cursor:pointer;
+  }
+
+.fg-button {
+  margin-left:3px;
+  margin-right:3px;
+  padding-left:3px;
+  padding-right:3px;
+  
+}
+
+div.recherche_nom {
+        position : relative;
+        top:0px;
+				float: left;
+			}
+
+.parcourt {
+        position : relative;
+        top:5px;
+        
+        }
+#liste_paginate {
+        padding-bottom:4px;
+	      padding-top:10px;
+}
+
+body {font-family:century gothic;
+}
+
+.etat0  .etat {
+}
+.etat1 {
+    background-color: Lightgreen;
+}
+.etat2 {
+    background-color: Coral;
+}
+.etat3 {
+    background-color: Orange;
+}
+.fixedHeader {
+   background-color: white;
+}

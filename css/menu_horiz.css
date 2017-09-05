@@ -1,0 +1,24 @@
+/*CSS menu horiz par jquery ui    */
+
+.ui-menu { width: 150px; 
+              font-size: 12px;
+              min-height: 32px; /* définit la hauteur minimale du menu (dépendante de la valeur de font-size) */ 
+    } 
+ ul#menuprinc { 
+              width: 100%; /* définit la largeur totale du menu */ 
+              } 
+ ul#menuprinc > li {
+             width: 150px; /* définit la largeur des items de niveau 1 */ 
+             float: left; /* définit le positionnement des items de niveau 1 */ 
+             } 
+   #present {
+      color:black;
+      margin:auto;
+      width:800px;
+      height:auto;
+      background-image:url('../images/terrain1.gif');
+      background-repeat:no-repeat;
+      background-position:center center;
+      background-size : 10% auto; 
+     
+    }

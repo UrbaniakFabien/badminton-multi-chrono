@@ -1,0 +1,41 @@
+    
+.ui-menubar {
+    list-style: none outside none;
+    margin: 0;
+    padding-left: 0;
+}
+.ui-menubar-item {
+    float: left;
+}
+.ui-menubar .ui-button {
+    border-bottom-width: 0 !important;
+    border-top-width: 0 !important;
+    float: left;
+    font-weight: normal;
+    margin: 0;
+    outline: medium none;
+}
+.ui-menubar .ui-menubar-link {
+    border-left: 1px dashed transparent;
+    border-right: 1px dashed transparent;
+}
+.ui-menubar .ui-menu {
+    font-weight: normal;
+    position: absolute;
+    width: 200px;
+    z-index: 9999;
+}
+.ui-widget-header {
+    background-color:grey;
+}
+#present {
+      color:black;
+      margin:auto;
+      width:800px;
+      height:auto;
+      background-image:url('../images/terrain1.gif');
+      background-repeat:no-repeat;
+      background-position:center center;
+      background-size : 10% auto; 
+     
+    }
