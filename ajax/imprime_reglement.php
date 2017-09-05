@@ -9,17 +9,19 @@ include_once '../connect.7.php';
 include_once "../fpdf/mc_table.php";
 
 function html2rgb($color) {
-    if ($color[0] == '#')
+    if ($color[0] == '#') {
         $color = substr($color, 1);
+    }
 
-    if (strlen($color) == 6)
+    if (strlen($color) == 6) {
         list($r, $g, $b) = array($color[0] . $color[1],
             $color[2] . $color[3],
             $color[4] . $color[5]);
-    elseif (strlen($color) == 3)
+    } elseif (strlen($color) == 3) {
         list($r, $g, $b) = array($color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
-    else
+    } else {
         return false;
+    }
 
     $r = hexdec($r);
     $g = hexdec($g);
@@ -77,5 +79,5 @@ while ($row = mysqli_fetch_row($query)) {
 if ($club != "") {
     $pdf->Row(array("Total : ", $du, $regle));
 }
-$doc=$pdf->Output('S');
+$doc = $pdf->Output('S');
 echo base64_encode($doc);
