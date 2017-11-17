@@ -13,7 +13,7 @@ if (isset($_GET["num"])) {$num=$_GET["num"];}
 if ($num!=0) {
     $sql = "SELECT `num_match` 
             FROM `echeancier` 
-            WHERE `num_match`>=".$num." and `spe`<>'Pause' and etat<>3 and num_titre=".$num_titre."
+            WHERE `num_match`>=".$num." and TRIM(`spe`)<>'Pause' and etat<>3 and num_titre=".$num_titre."
             ORDER BY num_titre, num_match
             LIMIT 0,1";
   
