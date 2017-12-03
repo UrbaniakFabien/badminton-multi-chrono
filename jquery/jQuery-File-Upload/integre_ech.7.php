@@ -23,7 +23,6 @@ $sign = array(" ", "+", "-", "/");
 $chg_sign = array("_", "PLUS", 'MOINS', "_");
 
 function analyse($detail) {
-
     $pos = strpos($detail, "Poule");
     if (!($pos === false)) {
         $reponse[] = substr($detail, 0, $pos - 1);
@@ -52,7 +51,40 @@ function analyse($detail) {
     }
     return $reponse;
 }
-
+//Analyse du detail du tableau
+//retourne le libelle en deux parties
+//1->Specialité
+//0->Tableau
+function analyse_2($detail) {
+	//Parametrage de découpage
+	///!\ ordre des éléments important dans le tableau /!\
+	$tab_detail = ["Poule"=>[1,0],
+			       "quart de finale"=>[1,0],
+			       "de finale"=>[3,2],
+			       "demi finale"=>[1,0],
+			       "finale"=>[1,0],
+			       "Pause"=>[0,0]
+			  	  ];
+	foreach ($tab_detail as $key=>$value) {		  
+		$pos = strpos($detail,$key);
+		if (!($pos === false)) {
+			if ($value[0] == 0 ) {
+				$reponse[] = $detail;
+				$reponse[] = "";
+			}
+			else {
+				$reponse[] = substr($detail,0,$pos-$value[0]);
+				$reponse[] = substr($detail,$pos-$value[1]);
+			}
+			break;
+		}
+	}
+	if (!(isset($reponse))) {
+		$reponse[] = "";
+		$reponse[] = "";
+	}
+return $reponse;
+}
 function couleur_hasard() {
     global $encours;
     global $termine;
@@ -177,7 +209,8 @@ foreach ($fichier as $e_fichier) {
 //                            }
                             //suppression du N° de match de la chaine
                             //Et analyse de la chaine pour en extraire la specialité et le tableau
-                            $tab = analyse(str_replace($num_match, "", $e_enreg));
+							$detail[0]="";
+                            $tab = analyse_2(ltrim(implode(" ",$detail)));
                             $spe = $tab[0];
                             $tableau = $tab[1];
 
