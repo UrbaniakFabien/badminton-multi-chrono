@@ -8,6 +8,10 @@
  * 
  * 10/01/2014
  *Ajout 'A propos de'     
+ *
+ *12/2017
+ *Ajout otion import reglement
+ *Changemnt appel liste joueur pointage
  *******************************************************************************/
 include("test_login.5.1.php");
 $tab_config=parse_ini_file("config.ini");
@@ -18,11 +22,12 @@ $menu='
     <li><a href="index.php">Accueil</a></li>
     <li><a href="#">Pointage</a>
       <ul>
-        <li><a href="liste_pointage.7.php">Table de pointage</a></li>
+        <li><a href="liste_pointage.7_1.php">Table de pointage</a></li>
         <li><a href="liste_table_marque.7.php">Table de marque</a></li>';
 if ($niveau=="admin") {
 $menu.= ' <li>-</li>
         <li><a href="integre_liste.7.php">Import liste</a></li>
+        <li><a href="integre_reglement.7.php">Import réglements</a></li>
         <li><a href="raz.7.php?cible=lst">RAZ listes</a></li>';
 }
 $menu.=  '</ul>
