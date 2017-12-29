@@ -59,31 +59,7 @@ icon-import {
         <script type="text/javascript" src="jquery/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-  $("#frm_param_integre").dialog({ title:'Configuration import',
-                                      width:  650,
-                                      height: 300,
-                                      modal: true,
-                                      autoOpen: false,
-                                      resizable:false,
-                                      buttons: [{
-                                          text:"OK",
-                                          'click': function() {  $( this ).dialog( "close" );    
-                                                               $("#msg").html("Import des réglements joueurs depuis le fichier téléchargé en cours ! <img src='images/wait.gif' style='width:30px;height:30px;'>");
-                                                               //var param=$('input[name=prm_import]:checked').val()
-                                                               
-                                                                  
-                                                              },       
-                                           
-                                          icons: { primary: 'ui-icon-check' }}, 
-                                          {
-                                          text:"Quitter", 
-                                          'click':function() {
-                                             
-                                              $( this ).dialog( "close" );
-                                          },
-                                           icons: { primary: 'ui-icon-close' }
-                                      }]
-                                  }); 
+  
 $("#frm_msg").dialog({ title:'Message',
                                       width:  450,
                                       height: 300,
