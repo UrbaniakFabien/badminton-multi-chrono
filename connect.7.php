@@ -196,4 +196,14 @@ foreach ($sql as $e_sql){
 }
    // on sélectionne la base
 mysqli_select_db($connect,$db);
-?>
+
+//
+//Constantes pour gestion des class et des couleurs de l'échéancier
+//
+$encours="90EE90"; //couleur pour match en cours
+$termine="FF7F50"; //Couleur match termine
+$pause  ="DCDCDC"; //Couleur Pause
+$horaire="CCFFFF";  // Couleur pour horaire
+//table de conversion des signes pour le nom des classes
+$sign = array(" ", "+", "-", "/","(",")",",");
+$chg_sign = array("_", "PLUS", 'MOINS', "_","","","_");

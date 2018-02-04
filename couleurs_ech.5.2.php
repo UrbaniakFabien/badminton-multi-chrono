@@ -8,13 +8,7 @@
  *le 10/01/2014
  *mise en majuscule des nom de class pour les specialités    
  * *********************************************************/  
-$encours="90EE90"; //couleur pour match en cours
-$termine="FF7F50"; //Couleur match termine
-$pause  ="DCDCDC"; //Couleur Pause
-$horaire="CCFFFF";  // Couleur pour horaire
-//table de conversion des signes pour le nom des classes
-$sign=array(" ","+","-","/");
-$chg_sign=array("_","PLUS",'MOINS',"_");
+
 
 function couleur_aleatoire() {
 global $encours;
@@ -98,7 +92,11 @@ return $uppercase ? strtoupper($out) : $out;
             // regarde si le fichier est accessible en écriture
             if (is_writable($f)) {
               //Sql pour ne generer que les spe du tournoi en cours
-              $sql2="SELECT  replace(replace(replace(replace(upper(SPE),' ','_'),'+','PLUS'),'-','MOINS'),'/','_') as spec FROM `echeancier` 
+                $replace="replace(upper(SPE),'$sign[0]','$chg_sign[0]')";
+                for ($i=1;$i<count($sign);$i++) {
+                    $replace = "replace($replace,'$sign[$i]','$chg_sign[$i]')";
+                }
+              $sql2="SELECT  $replace as spec FROM `echeancier` 
                     WHERE num_titre=".$_SESSION["num_titre"]."
                     group by spec";
                 $sql="SELECT coul_specialite,coul_couleur 

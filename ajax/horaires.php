@@ -64,4 +64,4 @@ $num_titre=isset($_SESSION["num_titre"])?$_SESSION["num_titre"] : 0;
      }
   }
   echo json_encode($tab);
-?>
+

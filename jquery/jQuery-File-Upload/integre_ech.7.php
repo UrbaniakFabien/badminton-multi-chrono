@@ -14,13 +14,14 @@
  * ***************************************************************************** */
 
 include ("../../connect.7.php");
-$encours = "90EE90"; //couleur pour match en cours
-$termine = "FF7F50"; //Couleur match termine
-$pause = "DCDCDC"; //Couleur Pause
-$horaire = "CCFFFF";  // Couleur pour horaire
-//table de conversion des signes pour le nom des classes
-$sign = array(" ", "+", "-", "/");
-$chg_sign = array("_", "PLUS", 'MOINS', "_");
+//constantes transferée dans connect.7.php
+//$encours = "90EE90"; //couleur pour match en cours
+//$termine = "FF7F50"; //Couleur match termine
+//$pause = "DCDCDC"; //Couleur Pause
+//$horaire = "CCFFFF";  // Couleur pour horaire
+////table de conversion des signes pour le nom des classes
+//$sign = array(" ", "+", "-", "/","(",")",",");
+//$chg_sign = array("_", "PLUS", 'MOINS', "_","","","_");
 
 function analyse($detail) {
     $pos = strpos($detail, "Poule");
@@ -59,12 +60,13 @@ function analyse_2($detail) {
 	//Parametrage de découpage
 	///!\ ordre des éléments important dans le tableau /!\
 	$tab_detail = ["Poule"=>[1,0],
-			       "quart de finale"=>[1,0],
-			       "de finale"=>[3,2],
-			       "demi finale"=>[1,0],
-			       "finale"=>[1,0],
-			       "Pause"=>[0,0]
-			  	  ];
+                       "quart de finale"=>[1,0],
+                       "1/8 de finale"=>[1,0],
+                       "1/16 de finale"=>[1,0],
+                       "demi finale"=>[1,0],
+                       "finale"=>[1,0],
+                       "Pause"=>[0,0]
+                          ];
 	foreach ($tab_detail as $key=>$value) {		  
 		$pos = strpos($detail,$key);
 		if (!($pos === false)) {
@@ -209,7 +211,7 @@ foreach ($fichier as $e_fichier) {
 //                            }
                             //suppression du N° de match de la chaine
                             //Et analyse de la chaine pour en extraire la specialité et le tableau
-							$detail[0]="";
+                            $detail[0]="";
                             $tab = analyse_2(ltrim(implode(" ",$detail)));
                             $spe = $tab[0];
                             $tableau = $tab[1];
@@ -239,7 +241,7 @@ foreach ($fichier as $e_fichier) {
                                 }
                             }
                             if ($spe != "Pause") {
-                                /**                                 * ******************************************************
+                                /********************************************************
                                  * Generation du tableau des specialité 
                                  * ******************************************************* */
                                 $spe = strtoupper(trim(str_replace($sign, $chg_sign, $spe)));
