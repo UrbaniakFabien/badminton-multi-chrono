@@ -2120,6 +2120,9 @@ echo $fonction_init_num_match;
                     //Horloge
                     timer();
                 }
+                //affichage par ddéfaut du recalcul des tranches
+                 affiche_horaires_reels();
+
             });
             /*****************************************************************************
              * Ouverture du formulaire de gestion des couleurs des tableaux
@@ -2261,7 +2264,7 @@ echo $fonction_init_num_match;
             <button id="noir_blanc">Echéancier en noir et blanc</button><br /> <br />
             <button id="chg_couleur">Gestion les couleurs</button><br /> <br />
             <button id="chg_ech">Change d'échéancier</button ><br />
-            Recalcul tranches horaires : <input type='checkbox' id='recalcul'  />
+            Recalcul tranches horaires : <input type='checkbox' id='recalcul'  checked='checked'/>
         </div>
         <!-- Formulaire de gestion des couleurs de l'échéancier -->
         <form id="frm_couleurs">
