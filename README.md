@@ -15,4 +15,4 @@ Complément de BadPlus pour suivi d'une compétition de badminton
 <li>Statistiques</li>
 </ul>
 Pour plus de détail voir dans le dossier /doc/ le mode d'emploi et un exemple d'implantation.<br/>
-Version en ligne sur <a href="www.badminton-briviste.fr">www.badminton-briviste.fr</a> rubrique outil gratuits.
+Version en ligne sur <a href="http://www.badminton-briviste.fr">www.badminton-briviste.fr</a> rubrique outil gratuits.
