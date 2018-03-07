@@ -1,13 +1,13 @@
-.Couleur_texte { background-color:#010308;color:#010308;}
-.DD_D2_D9_P10_P11_P12 { background-color:#ed320f;color:#010308;}
-.DD_R_R4_R5_R6 { background-color:#99251c;color:#010308;}
-.DH_D1_D7_D8 { background-color:#8bc73f;color:#010308;}
-.DH_D2_D9_P10_P11_P12 { background-color:#b9c991;color:#010308;}
-.DH_R_R4_R5_R6 { background-color:#1c1555;color:#010308;}
-.SD_D2_D9_P10_P11_P12 { background-color:#4de94e;color:#010308;}
-.SH_D1_D7_D8 { background-color:#d44cd1;color:#010308;}
-.SH_D2_D9_P10_P11_P12 { background-color:#21911c;color:#010308;}
-.SH_R_R4_R5_R6 { background-color:#537521;color:#010308;}
+.Couleur_texte { background-color:#212121;color:#212121;}
+.DD_SERIE_CASIMIR_1 { background-color:#e81dcb;color:#212121;}
+.DD_SERIE_HIPPOLYTE_2 { background-color:#e8364a;color:#212121;}
+.DD_SERIE_LEONARD_3 { background-color:#22d61e;color:#212121;}
+.DH_SERIE_CASIMIR_1 { background-color:#11dceb;color:#212121;}
+.DH_SERIE_EDMEE_5 { background-color:#f2a785;color:#212121;}
+.DH_SERIE_FRANCOIS_6 { background-color:#e67219;color:#212121;}
+.DH_SERIE_HIPPOLYTE_2 { background-color:#d54bf5;color:#212121;}
+.DH_SERIE_LEONARD_3 { background-color:#373bf5;color:#212121;}
+.PAUSE { background-color:#DCDCDC;color:#212121;}
 
                           #echeancier td {
                             width:180px;

@@ -13,4 +13,3 @@ $_admin_pass = $tab_config["mdp_administrateur"]; // Mot de passe cripté
 $_admin_login = $tab_config["nom_administrateur"];
 $_user_pass= $tab_config["mdp_utilisateur"]; // Mot de passe cripté
 $_user_login=$tab_config["nom_utilisateur"];
-?>

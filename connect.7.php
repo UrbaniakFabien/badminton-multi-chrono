@@ -205,5 +205,7 @@ $termine="FF7F50"; //Couleur match termine
 $pause  ="DCDCDC"; //Couleur Pause
 $horaire="CCFFFF";  // Couleur pour horaire
 //table de conversion des signes pour le nom des classes
-$sign = array(" ", "+", "-", "/","(",")",",",".");
-$chg_sign = array("_", "PLUS", 'MOINS', "_","","","_","_");
+$sign = array(" ", "+", "-", "/","(",")",",",".","é","ç");
+$chg_sign = array("_", "PLUS", 'MOINS', "_","","","_","_","e","c");
+
+

@@ -140,23 +140,28 @@ $( "#menuprinc" ).menu({
   padding-left: 20px;
 }
 span {text-align:center;}
+.grand_car {
+	font-size : 300px;
+	color:white;
+}
+.moyen_car {
+	font-size : 90px;
+	color:white;
+	text-align:center;
+}
 </style>
 </head>
-<body>
+<body style='background-color:black';>
 
 <?php include ("menu.5.1.php"); ?>
 
-<div style="float:left; text-align:center;">
-   <h1><?php echo $titre; ?></h1>
-</div>
-<div style="float:right;"
-  ><h2><span id="horloge"></span></h2>
-</div>
+
   
-      <div id="dernier" style="float:left;width:100%">
+      <div id="dernier"  >
+	  <!--
         <table>
           <tr>
-            <td>Plus grand N° de match en cours</td><td><span id="num_match"></span></td>
+            <td>Dernier N° de match en cours</td><td><span id="num_match"></span></td>
           </tr>
           <tr>
             <td rowspan="2">Tableau</td><td> <span id="spe"></span></td>
@@ -171,6 +176,10 @@ span {text-align:center;}
             <td>Terrain N°</td><td><span id="num_terrain"></span></td>
           </tr>
         </table>
+		-->
+		
+		<p class="moyen_car">PROCHAIN MATCH</p>
+		<div style="margin:auto;width:210px;" class='grand_car' id="num_match"></div>
       </div>
 </body>
 </html>

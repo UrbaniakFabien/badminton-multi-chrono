@@ -117,16 +117,27 @@ if (!$result) {
         //FU
         //07/2017
         $pos = strpos($data["Joueur"], "/");
-        $temp = substr($data["Joueur"], 0, $pos);
-        $pos = strrpos($temp, "-");
+		if ($pos>0)
+		{        $temp = substr($data["Joueur"], 0, $pos);
+			$pos = strrpos($temp, "-");
 
-        $clef_nom = substr($data["Joueur"], 0, $pos);
-
+			$clef_nom = substr($data["Joueur"], 0, $pos);
+	}
+	else {
+		$clef_nom = "";
+		$sep = "";
+		$temp_ = explode("-",$data["Joueur"]);
+		for ($i=0;$i<count($temp_)-2;$i++) {
+			$clef_nom .= $sep  . $temp_[$i];
+			$sep = '-';
+		}
+	}
+        $clef_nom=utf8_decode($clef_nom);
         $tab_joueur = explode("(", $data["Joueur"]);
         list($club, $tmp) = explode("-", $tab_joueur[1]);
         $sql = "SELECT reg_joueurs_regle,reg_joueurs_id 
                 FROM tbl_regl_joueurs 
-                WHERE reg_joueurs_nom = '{$clef_nom}' AND reg_joueurs_club = '{$club}' ";
+                WHERE reg_joueurs_nom = '{$clef_nom}' ";//AND reg_joueurs_club = '{$club}' ";
 
         $result = mysqli_query($connect, $sql);
         if (($result->num_rows>0)) {
@@ -135,7 +146,7 @@ if (!$result) {
                 $data["Réglement"] = "<img  src='images/" . ($data_regl[0] == 1 ? "regle.png" : "en_attente.png") . "' style='width:25%;' class='reglement id_{$data_regl[1]}' data-id_reglement='{$data_regl[1]}'/>";
             }
         }else {
-            $data["Réglement"] = "";
+            $data["Réglement"] = $clef_nom;
         }
 
         //------------------------------------------------------------

@@ -1,6 +1,6 @@
 <?php
 
-include ("../..connect.7.php");
+include ("../../connect.7.php");
 /*
  * Extraction des données du fichier csv de réglements
  *FUR
@@ -23,10 +23,11 @@ $MyDirectory = opendir($Directory) or die('Erreur');
                  
 	 }
 closedir($MyDirectory);
+
 $tab_titre=array();//Contient les informations pour le retour
 //Integration de chaque fichier trouvé 
 foreach ($fichier as $e_fichier) {   
-$f = fopen($e_fichier, "r");
+$f=fopen($Directory."/".$e_fichier,'r');
 //On vide les tables à chaque traitement
 $result = mysqli_query($connect,"TRUNCATE `tbl_regl_clubs`;");
 $result = mysqli_query($connect,"TRUNCATE `tbl_regl_joueurs`;");
@@ -41,7 +42,7 @@ while ($ligne = fgets($f)) {
                 if ($tab[0] != "Nom") {
                     list($j,$m,$y) = explode("/",$tab[5]);
                     $tab[5] = "$y-$m-$j";
-                    $tab_joueurs[] = array("reg_joueurs_nom" => $tab[0], "reg_joueurs_club" => $tab[1], "reg_joueurs_date" => $tab[5], "reg_joueurs_montant" => $tab[11]+0,"reg_joueurs_regle"=>false);
+                    $tab_joueurs[] = array("reg_joueurs_nom" => $tab[0], "reg_joueurs_club" => $tab[1], "reg_joueurs_date" => $tab[5], "reg_joueurs_montant" => $tab[11]+0,"reg_joueurs_regle"=>0);
                     $club = $tab[1];
                 }
                 break;
@@ -64,9 +65,9 @@ while ($ligne = fgets($f)) {
                         $reg_joueurs_id_fk_club = mysqli_insert_id($connect);
                         //echo $sql . "<br>";
                         foreach ($tab_joueurs as $e_tab_joueurs) {
-                            $e_tab_joueurs["reg_joueurs_regle"] = $ok_paye;
+                            $e_tab_joueurs["reg_joueurs_regle"] = ($ok_paye?1:0);
                             $sql = "INSERT INTO tbl_regl_joueurs (reg_joueurs_id_fk_club," . implode(",", array_keys($e_tab_joueurs)) . ") VALUES ($reg_joueurs_id_fk_club,'" . implode("','", $e_tab_joueurs) . "')";
-                            //echo $sql . "<br>";
+                            echo $sql . "<br>";
                             $result = mysqli_query($connect, $sql);
                             
                         }
@@ -78,7 +79,7 @@ while ($ligne = fgets($f)) {
         }
     }
 }
- fclose($handle);
+ fclose($f);
   //Suppression du fichier
   unlink($Directory."/".$e_fichier);
 }
