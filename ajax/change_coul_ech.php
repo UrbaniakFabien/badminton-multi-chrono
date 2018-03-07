@@ -6,14 +6,14 @@
     include ("../connect.7.php");
   
 
-        $encours="90EE90"; //couleur pour match en cours
-        $termine="FF7F50"; //Couleur match termine
-        $pause  ="DCDCDC"; //Couleur Pause
-        $horaire="CCFFFF";  // Couleur pour horaire
-       
-         //table de conversion des signes pour le nom des classes
-        $sign=array(" ","+","-","/");
-        $chg_sign=array("_","plus",'moins',"_");
+//        $encours="90EE90"; //couleur pour match en cours
+//        $termine="FF7F50"; //Couleur match termine
+//        $pause  ="DCDCDC"; //Couleur Pause
+//        $horaire="CCFFFF";  // Couleur pour horaire
+//       
+//         //table de conversion des signes pour le nom des classes
+//        $sign=array(" ","+","-","/");
+//        $chg_sign=array("_","plus",'moins',"_");
        
          function couleur_aleatoire() {
           global $encours;

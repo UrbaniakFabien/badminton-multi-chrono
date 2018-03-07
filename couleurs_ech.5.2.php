@@ -92,7 +92,7 @@ return $uppercase ? strtoupper($out) : $out;
             // regarde si le fichier est accessible en écriture
             if (is_writable($f)) {
               //Sql pour ne generer que les spe du tournoi en cours
-                $replace="replace(upper(SPE),'$sign[0]','$chg_sign[0]')";
+                $replace="replace(upper(rtrim(SPE)),'$sign[0]','$chg_sign[0]')";
                 for ($i=1;$i<count($sign);$i++) {
                     $replace = "replace($replace,'$sign[$i]','$chg_sign[$i]')";
                 }
@@ -105,7 +105,7 @@ return $uppercase ? strtoupper($out) : $out;
                             OR coul_specialite='Couleur_texte'
                       ORDER BY coul_specialite";
               $result=mysqli_query($connect,$sql);
-			 
+		
               $style="";
               $lst_style="";
               $lst_coul_style="";
@@ -310,4 +310,3 @@ display:none;
  }
  $tab_couleur["horaire"]=html2rgb($horaire);
  $_SESSION["tab_couleur"]=$tab_couleur;
-?>

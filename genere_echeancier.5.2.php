@@ -147,7 +147,3 @@ if ($result) {
         $tableau.="</table>";
     }
 }
-
-
-
-?>

@@ -163,7 +163,7 @@ $sql[] = 'CREATE DATABASE IF NOT EXISTS ' .$db .';';
  *******************************************************************************/
 $sql[]="CREATE TABLE IF NOT EXISTS ".$db.".`tbl_couleurs` (
                                                   `coul_id_titre` int(11) NOT NULL,
-                                                  `coul_specialite` char(20) NOT NULL,
+                                                  `coul_specialite` char(50) NOT NULL,
                                                   `coul_couleur` char(7) NOT NULL
                                                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE utf8_general_ci";
 /****************************************************************************

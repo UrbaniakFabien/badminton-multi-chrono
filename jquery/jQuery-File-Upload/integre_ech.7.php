@@ -244,7 +244,7 @@ foreach ($fichier as $e_fichier) {
                                 /********************************************************
                                  * Generation du tableau des specialité 
                                  * ******************************************************* */
-                                $spe = strtoupper(trim(str_replace($sign, $chg_sign, $spe)));
+                                $spe = strtoupper(trim(str_replace($sign, $chg_sign, rtrim($spe))));
                                 if (in_array($spe, $tab_spe, true) == false) {
                                     $tab_spe[] = $spe;
                                 }
