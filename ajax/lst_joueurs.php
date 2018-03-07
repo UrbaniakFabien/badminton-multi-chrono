@@ -18,13 +18,13 @@ $donnee = [["value"=>$_admin_login,'id'=>0],
 $term = isset($_GET["term"])?$_GET["term"]:"";
 
     if ($term != "") {
-    $filtre = "  Joueur like '%" . $_GET["term"] . "%' ";
+    $filtre = "  Joueur like '%" . $_GET["term"] . "%'  AND ";
     }
 
 
 $sql = "SELECT Joueur as value, Licences as id 
         FROM joueurs
-        WHERE  $filtre  AND NOT ISNULL(Joueur)  GROUP BY `Joueur`,`Licences`;";
+        WHERE  $filtre   NOT ISNULL(Joueur)  GROUP BY `Joueur`,`Licences`;";
 //echo $sql;
 $result = mysqli_query($connect, $sql);
 
