@@ -28,16 +28,20 @@ include ("liste_joueurs.7_1.php");
         <link rel="stylesheet" type="text/css" href="css/menu_horiz.css" />
         <link href="jquery/jquery-ui-1.10.2.custom/css/cupertino/jquery-ui-1.10.2.custom.min.css" rel="stylesheet" />
 
-        <link rel="stylesheet" type="text/css" href="jquery/css/ColumnFilterWidgets.css" />
+        <link rel="stylesheet" type="text/css" href="jquery/css/ColumnFilterWidgets.css" /> 
+        
+       <link href="jquery/DataTables/datatables.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" title="currentStyle" href="css/liste.css" />
-        <link rel="stylesheet" type="text/css" title="currentStyle" href="jquery/DataTables-1.9.0/media/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" title="currentStyle" href="jquery/DataTables-1.9.0/media/css/demo_table.css" />
+<!--        <link rel="stylesheet" type="text/css" title="currentStyle" href="jquery/DataTables-1.9.0/media/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" title="currentStyle" href="jquery/DataTables-1.9.0/media/css/demo_table.css" />-->
         <link href="jquery/jQuery.msgBox-master/styles/msgBoxLight.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="jquery/jquery-2.1.3.js"></script>
         <script type="text/javascript" src="js/menu.js"></script>
         <script type="text/javascript" src="jquery/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="jquery/DataTables-1.9.0/media/js/jquery.DataTables.min.js"></script>
-        <script type="text/javascript" src="jquery/DataTables-1.9.0/extras/FixedHeader/js/FixedHeader.js"></script>
+      
+        <script src="jquery/DataTables/datatables.min.js" type="text/javascript"></script>
+<!--        <script type="text/javascript" src="jquery/DataTables-1.9.0/media/js/jquery.DataTables.min.js"></script>
+        <script type="text/javascript" src="jquery/DataTables-1.9.0/extras/FixedHeader/js/FixedHeader.js"></script>-->
         <script src="jquery/jQuery.msgBox-master/scripts/jquery.msgBox.js" type="text/javascript"></script>
         <script type="text/javascript" src="jquery/js/ColumnFilterWidgets.js" ></script>
 
@@ -90,24 +94,7 @@ include ("liste_joueurs.7_1.php");
                 }
                 return ((x < y) ? 1 : ((x > y) ? -1 : 0));
             };
-            $.fn.dataTableExt.oApi.fnStandingRedraw = function (oSettings) {
-                //redraw to account for filtering and sorting
-                // concept here is that (for client side) there is a row got inserted at the end (for an add)
-                // or when a record was modified it could be in the middle of the table
-                // that is probably not supposed to be there - due to filtering / sorting
-                // so we need to re process filtering and sorting
-                // BUT - if it is server side - then this should be handled by the server - so skip this step
-                if (oSettings.oFeatures.bServerSide === false) {
-                    var before = oSettings._iDisplayStart;
-                    oSettings.oApi._fnReDraw(oSettings);
-                    //iDisplayStart has been reset to zero - so lets change it back
-                    oSettings._iDisplayStart = before;
-                    oSettings.oApi._fnCalculateEnd(oSettings);
-                }
-
-                //draw the 'current' page
-                oSettings.oApi._fnDraw(oSettings);
-            };
+            
             function callComplete(reponse) {
                 /*Mise à jour du tableau si modification de la base
                  reponse contient le Num et l'état des lignes modifiées
@@ -119,12 +106,13 @@ include ("liste_joueurs.7_1.php");
                         etat = "0";
                     }
                     // Bascule de la couleur d'arriére-plan en fonction de l'état        
-                    $(oTable.fnGetNodes()).filter("#num" + reponse[i].num).toggleClass("etat1", reponse[i].etat == "1")
+                    $(oTable.row("#num" + reponse[i].num).node()).toggleClass("etat1", reponse[i].etat == "1")
                             .toggleClass("etat2", reponse[i].etat == "2")
                             .toggleClass("etat3", reponse[i].etat == "3")
                             ;
-                    // mise a jour de la colonne etat sans redessiner le tableau           
-                    oTable.fnUpdate(etat, i, 0, false, false);
+                    // mise a jour de la colonne etat sans redessiner le tableau  
+                      oTable.row(i).data()[0]=etat;
+                   
                     //mise a jour de l'infobulle
                     if (reponse[i].etat == "3") {
                         $("#num" + reponse[i].num).attr('title', reponse[i].commentaire)
@@ -132,7 +120,7 @@ include ("liste_joueurs.7_1.php");
                     }
                 }
                 // re-dessine le tableau sans toucher l'affichage de la pagination en cours    
-                oTable.fnStandingRedraw();
+                oTable.draw('page');
                 // Relance la mise a jour 
                 var t = setTimeout("connect();", 15 * 1000);   //Appel Temporisé
             }
@@ -141,7 +129,7 @@ include ("liste_joueurs.7_1.php");
             function connect() {
                 // boucle infinie : demande de donnée toutes les 15s
 
-                $.post('ajax/retourmaj.5.2.php', {}, callComplete, 'json');
+              $.post('ajax/retourmaj.5.2.php', {}, callComplete, 'json');
 
             }
             ;
@@ -158,9 +146,9 @@ include ("liste_joueurs.7_1.php");
                     var $thisParagraph = $(this);
                     var count = 0;
                     var id = $thisParagraph.attr("id");
-                    var aPos = oTable.fnGetPosition(this); //Indice de la ligne
+                    var aPos = oTable.row(this).index(); //Indice de la ligne
                     // Valeur de l'état
-                    count = oTable.fnGetData(aPos, 0);
+                    count = oTable.row(aPos).data()[0];
                     count++;
                     if (count >= 4) {
                         count = 0;
@@ -190,32 +178,36 @@ include ("liste_joueurs.7_1.php");
                                     .toggleClass("etat2", count == 2)
                                     .toggleClass("etat3", count == 3);
                             // Mise a jour de l'état
-                            oTable.fnUpdate(count, aPos, 0, false, false);
+                            oTable.row(aPos).data()[0]=count;
                             // re-dessine le tableau sans toucher l'affichage de la pagination en cours    
-                            oTable.fnStandingRedraw();
+                            
+                            oTable.draw('page');
                         }
                     });
 
 
                 });
-                // Initialisation de l'affichage du tableau
-                 oTable = $('#liste').dataTable({
-                    //"sPaginationType": "full_numbers",
-                    "bPaginate": false,
-                    "oLanguage": {"sUrl": "jquery/DataTables-1.9.0/media/language/fr_FR.txt"},
-                    "aoColumnDefs": [
+               //Version Datatables 1.10
+               //FUR
+               //04/2018
+                 oTable = $('#liste').DataTable({
+                    //"sPaginationType": ,
+                    paging: "full_numbers",
+                    language: {"url": "jquery/DataTables/language/fr_FR.txt"},
+                    columnDefs: [
                         {"bSortable": false, "bVisible": false, "aTargets": [0]}, //cache la colonne etat
                         {"sType": "num_match", "aTargets": [3]}  //tri sur N° de match par fonction perso
                     ],
-                    "sDom": 'W<"clear">lfrtip',
+                    dom: 'W<"clear">lfrtip',
                     "oColumnFilterWidgets": {
-                        "aiExclude": [0, 1, 2, 3]
+                        "aiExclude": [0, 1, 2, 3,7]
                     },
-                    "aaSorting": [[1, "asc"]], //Tri par défaut sur le nom
-                    "fnInitComplete": function () {
+                    order: [[1, "asc"]], //Tri par défaut sur le nom
+                    initComplete: function () {
                         connect();//Lancement de la boucle de  raffraichissment des données dés que le tableau est en place 
                     },
-                    scrollY:"400px",
+                    scrollY:"800px",
+                    scrollX:false,
                     scrollCollapse:true
                 });
                 //new FixedHeader(oTable);
@@ -431,7 +423,7 @@ include ("liste_joueurs.7_1.php");
                 if (!test) {
                     filtre = "";
                 }
-                oTable.fnFilter(filtre, 0);
+                oTable.column(0).search(filtre).draw('page');
             }
 
 
@@ -440,14 +432,23 @@ include ("liste_joueurs.7_1.php");
     </head>
     <body>
         <?php include ("menu.5.1.php"); ?>
-
-        Filtre :  <input type="radio" id="filtre" name="filtre" value="99" checked/>Tous&nbsp;
-        <input type="radio" id="filtre" name="filtre" value="1" /><span class="etat1">Présents&nbsp;</span>
-        <input type="radio" id="filtre" name="filtre" value="0" />En attente&nbsp;
-        <input type="radio" id="filtre" name="filtre" value="2" /><span class="etat2">Absents (WO)&nbsp;</span>
-        <input type="radio" id="filtre" name="filtre" value="3" ><span class="etat3">Absents autorisés&nbsp;</span>
+       <div style="float:left;width:300px;">
+            Délai de rafraichissement : 
+            <select id="tempo">
+                <option value='1'>1 s</option>
+                <option value='5'>5 s</option>
+                <option value='10' selected>10 s </option>
+                <option value='15'>15 s </option>
+            </select> &nbsp;
+        </div>
+        <div style="float:right;">
+            Filtre : <input type="radio" id="filtre" name="filtre" value="99" checked/>Tous&nbsp;
+            <input type="radio" id="filtre" name="filtre" value="1" /><span class="etat1">Présents&nbsp;</span>
+            <input type="radio" id="filtre" name="filtre" value="0" />En attente&nbsp;
+            <input type="radio" id="filtre" name="filtre" value="2" /><span class="etat2">Absents (WO)&nbsp;</span>
+            <input type="radio" id="filtre" name="filtre" value="3" ><span class="etat3">Absents autorisés&nbsp;</span>
+        </div>
         <br />
-
         <?php
         echo $entete . $corps;
         ?> 

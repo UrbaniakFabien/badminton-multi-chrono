@@ -38,11 +38,11 @@ $pdf->SetLineWidth(0.4);  //Epaisseur des bordures
 $pdf->SetFont('Arial', '', 10); //Taille du texte par defaut
 $pdf->SetLeftMargin(4);
 //Initialisation des largeurs
-$pdf->SetWidths(array(45, 25, 25));
+$pdf->SetWidths(array(45, 25, 25,25));
 //    des alignements horizontaux
-$pdf->SetAligns(array("L", "R", "R"));
+$pdf->SetAligns(array("L", "R", "R","C"));
 
-$sql = "SELECT reg_joueurs_club,reg_joueurs_nom,reg_joueurs_montant,reg_joueurs_regle
+$sql = "SELECT reg_joueurs_club,reg_joueurs_nom,reg_joueurs_montant,reg_joueurs_regle,reg_mode_reglement
         FROM tbl_regl_joueurs
         
         ORDER BY reg_joueurs_club, reg_joueurs_nom";
@@ -57,8 +57,8 @@ while ($row = mysqli_fetch_row($query)) {
             $pdf->Row(array("Total : ", $du, $regle));
         }
         $pdf->AddPage("P"); //nouvelle page 
-        $pdf->Row(array("Club : ", $row[0], ""));
-        $pdf->Row(array("Nom Joueur", utf8_decode("Montant Dû"), utf8_decode("Montant Réglé")));
+        $pdf->Row(array("Club : ", $row[0]));
+        $pdf->Row(array("Nom Joueur", utf8_decode("Montant Dû"), utf8_decode("Montant Réglé"),("Mode")));
         $club = $row[0];
         $du = 0;
         $regle = 0;
@@ -71,8 +71,11 @@ while ($row = mysqli_fetch_row($query)) {
         $regle += $row[2];
         $row[3] = "Oui";
     }
-    $pdf->SetFonds(array($couleur_fond, $couleur_fond, $couleur_fond));
-    $pdf->Row(array($row[1], $row[2], $row[3]));
+    $pdf->SetFonds(array($couleur_fond, $couleur_fond, $couleur_fond, $couleur_fond));
+    $pdf->Row([$row[1], 
+               $row[2], 
+               $row[3], 
+               utf8_decode($row[3]=="Oui"?($row[4]==1?"Chéque":"Espéces"):"")]);
     $pdf->SetFonds(array());
     $du += $row[2];
 }

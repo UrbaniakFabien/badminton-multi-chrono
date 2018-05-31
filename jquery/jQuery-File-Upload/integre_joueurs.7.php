@@ -183,4 +183,4 @@ foreach ($tab_titre as $etab_titre) {
   $i++;
 }  
   echo json_encode($tab_titre);//Retourne le nombre d'enreg integrés
-?>
+

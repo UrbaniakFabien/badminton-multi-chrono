@@ -12,7 +12,7 @@ $result = mysqli_query($connect, "SELECT * from titre");
 $tab_decalage = array();
 while ($data = mysqli_fetch_array($result)) {
     if ($data["decalage_horaire_convocation"] != "") {
-        list($h, $m) = explode("h", $data["decalage_horaire_convocation"]);
+        list($h, $m) = explode("h", strtolower( $data["decalage_horaire_convocation"]));
         $data["decalage_horaire_convocation"] = ($h * 60) + $m;
     } else {
         $data["decalage_horaire_convocation"] = 30;//valeur par defaut 30 min
@@ -92,19 +92,10 @@ if (!$result) {
         // et traitement si existe
         $result = mysqli_query($connect, $sql);
         if ($data_ = mysqli_fetch_array($result)) {
-//            $decalage = 30; //décalage par défaut 30 minutes
-//            foreach ($tab_decalage as $e) {
-//                if ($e["num_titre"] == $data["num_titre"]) {
-//                    if ($e["decalage_horaire_convocation"] != 0) {
-//                        $decalage = $e["decalage_horaire_convocation"];
-//                        break;
-//                    }
-//                }
-//            }
             $decalage = $tab_decalage[$data["num_titre"]]["decalage_horaire_convocation"];
             if ($data_["horaire_convocation"] != "") {
                 //Mise a jour de la donnée dans le tableau principal
-                list($h, $m) = explode("h", $data_["horaire_convocation"]);
+                list($h, $m) = explode("h", strtolower($data_["horaire_convocation"]));
                 $convoc = ($h * 60) + $m - $decalage;
                 $h = intval($convoc / 60);
                 $m = $convoc % 60;
@@ -143,7 +134,7 @@ if (!$result) {
         if (($result->num_rows>0)) {
             while ($data_regl = mysqli_fetch_row($result)) {
 
-                $data["Réglement"] = "<img  src='images/" . ($data_regl[0] == 1 ? "regle.png" : "en_attente.png") . "' style='width:25%;' class='reglement id_{$data_regl[1]}' data-id_reglement='{$data_regl[1]}'/>";
+                $data["Réglement"] = "<div style='text-align:center'><img  src='images/" . ($data_regl[0] == 1 ? "regle.png" : "en_attente.png") . "' style='width:10%;' class='reglement id_{$data_regl[1]}' data-id_reglement='{$data_regl[1]}'/></div>";
             }
         }else {
             $data["Réglement"] = $clef_nom;

@@ -65,7 +65,8 @@ function analyse_2($detail) {
                        "1/16 de finale"=>[1,0],
                        "demi finale"=>[1,0],
                        "finale"=>[1,0],
-                       "Pause"=>[0,0]
+                       "Pause"=>[0,0],
+                       "place"=>[6,6]
                           ];
 	foreach ($tab_detail as $key=>$value) {		  
 		$pos = strpos($detail,$key);

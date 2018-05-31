@@ -22,8 +22,8 @@ $menu='
     <li><a href="index.php">Accueil</a></li>
     <li><a href="#">Pointage</a>
       <ul>
-        <li><a href="liste_pointage.7_1.php">Table de pointage</a></li>
-        <li><a href="liste_table_marque.7.php">Table de marque</a></li>';
+        <li><a href="liste_pointage.7_2.php">Table de pointage</a></li>
+        <li><a href="liste_table_marque.7_2.php">Table de marque</a></li>';
 if ($niveau=="admin") {
 $menu.= ' <li>-</li>
         <li><a href="integre_liste.7.php">Import liste</a></li>
@@ -118,4 +118,4 @@ Avec d\'autres browser (ie, opera,chrome...) les affichages ne seront peut &ecir
 </script>
 ';
 echo $menu;
-?>
+

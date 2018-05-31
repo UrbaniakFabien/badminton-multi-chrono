@@ -88,18 +88,14 @@ $("#frm_msg").dialog({ title:'Message',
   //fonction d'import des fichiers uploadés
       $.post('jquery/jQuery-File-Upload/integre_reglements.7.php',
               function(data) {
-                              ligne="<table class='table table-striped'><thead><tr><th>Titre</th><th>Joueurs import&eacute;s</th><th>Joueurs sans licences</th></tr></thead><tbody>";
-                              for (i=0;i<=data.length-1;i++) {
-                                  ligne=ligne + "<tr><td>" + data[i].titre + "</td><td>" + data[i].nbr_joueur + "</td><td>" + data[i].sans_licence + "</td></tr>";
-                              }
-                              ligne=ligne + "</tbody></table>";
-                              $("#tab_cr").html(ligne); 
+                              
+                              $("#tab_cr").html("Intégration réglement OK"); 
                               $("#frm_msg").dialog("open");
                               $("#msg").html("");   //Pour supprimer le message
                               $(".files").html(""); //pour supprimer la liste des fichiers
                               },
               'json');
-   return false
+   return false;
 }
 
       
