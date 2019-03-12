@@ -10,6 +10,7 @@
 
 $result = mysqli_query($connect, "SELECT * from titre");
 $tab_decalage = array();
+$tab_frm_decalage = "<table><thead><tr><th>Lieu et date</td><th>Délai</th></tr></thead><tbody>";
 while ($data = mysqli_fetch_array($result)) {
     if ($data["decalage_horaire_convocation"] != "") {
         list($h, $m) = explode("h", strtolower( $data["decalage_horaire_convocation"]));
@@ -19,7 +20,10 @@ while ($data = mysqli_fetch_array($result)) {
     }
 
     $tab_decalage[$data["num_titre"]] = $data;
+    $tab_frm_decalage .="<tr id='id_{$data[0]}'><td>$data[1]</td><td><input name='delai_{$data[0]}' value='$data[2]'></td></tr>";
 }
+$tab_frm_decalage .="</tbody></table>";
+
 
 $entete = "<table id='liste'>
          <thead><tr>";
@@ -134,7 +138,7 @@ if (!$result) {
         if (($result->num_rows>0)) {
             while ($data_regl = mysqli_fetch_row($result)) {
 
-                $data["Réglement"] = "<div style='text-align:center'><img  src='images/" . ($data_regl[0] == 1 ? "regle.png" : "en_attente.png") . "' style='width:10%;' class='reglement id_{$data_regl[1]}' data-id_reglement='{$data_regl[1]}'/></div>";
+                $data["Réglement"] = "<div                                                                   style='text-align:center'><img  src='images/" . ($data_regl[0] == 1 ? "regle.png" : "en_attente.png") . "' style='width:10%;' class='reglement id_{$data_regl[1]}' data-id_reglement='{$data_regl[1]}'/></div>";
             }
         }else {
             $data["Réglement"] = $clef_nom;

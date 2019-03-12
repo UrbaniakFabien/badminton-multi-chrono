@@ -303,7 +303,21 @@ $formulaire_couleurs.="</tbody></table>";
                 /*************************************************************************
                  *Complement du menu
                  *************************************************************************/
-                $("#menu_echeancier").html("<a href='#'>Affichage</a><ul><li><a onclick='change_couleur(this);' id='change_coul'>En noir et blanc</a></li><li><a onclick='gestion_couleurs();' id='gestion_couleurs'>Gestion des couleurs</a></li><li><a>Rafraichissement</a><ul><li><a>1 s<span></span></a></li><li><a>5 s<span></span></a></li><li><a>10 s<span class='sel' ></span></a></li><li><a>15 s<span></span></a></li></ul></li><li><a id='clic_imprime'>Imprime</a></li><li><a onclick='change_ech();'>Change Echéancier</a></li></ul>");
+                $("#menu_echeancier").html("<a href='#'>Affichage</a>\n\
+                                            <ul>\n\
+                                                <li><a onclick='change_couleur(this);' id='change_coul'>En noir et blanc</a></li>\n\
+                                                <li><a onclick='gestion_couleurs();' id='gestion_couleurs'>Gestion des couleurs</a></li>\n\
+                                                <li><a>Rafraichissement</a>\n\
+                                                    <ul>\n\
+                                                        <li><a>1 s<span></span></a></li>\n\
+                                                        <li><a>5 s<span></span></a></li>\n\
+                                                        <li><a>10 s<span class='sel' ></span></a></li>\n\
+                                                        <li><a>15 s<span></span></a></li>\n\
+                                                    </ul>\n\
+                                                </li>\n\
+                                                <li><a id='clic_imprime'>Imprime</a></li>\n\
+                                                <li><a onclick='change_ech();'>Change Echéancier</a></li>\n\
+                                            </ul>");
 
 
                 /***********************************************************************

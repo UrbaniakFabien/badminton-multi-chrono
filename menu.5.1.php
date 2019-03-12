@@ -22,7 +22,7 @@ $menu='
     <li><a href="index.php">Accueil</a></li>
     <li><a href="#">Pointage</a>
       <ul>
-        <li><a href="liste_pointage.7_2.php">Table de pointage</a></li>
+        <li id="liste_pointage"><a href="liste_pointage.7_2.php">Table de pointage</a></li>
         <li><a href="liste_table_marque.7_2.php">Table de marque</a></li>';
 if ($niveau=="admin") {
 $menu.= ' <li>-</li>
