@@ -461,7 +461,7 @@ include ("liste_joueurs.7_1.php");
                                     dataType:'json',
                                     data:$("#frm_change_delai").serialize(),
                                     success:function(data){
-                                        if data.message = 'ok' {
+                                        if (data.message == 'ok') {
                                             window.location="liste_pointage.7_2.php";
                                         } else {
                                             $.msgBox({
