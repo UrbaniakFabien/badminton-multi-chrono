@@ -69,7 +69,7 @@ foreach ($fichier as $e_fichier) {
                         foreach ($tab_joueurs as $e_tab_joueurs) {
                             $e_tab_joueurs["reg_joueurs_regle"] = ($ok_paye ? 1 : 0);
                             $sql = "INSERT INTO tbl_regl_joueurs (reg_joueurs_id_fk_club," . implode(",", array_keys($e_tab_joueurs)) . ") VALUES ($reg_joueurs_id_fk_club,'" . implode("','", $e_tab_joueurs) . "')";
-                            echo $sql . "<br>";
+                            //echo $sql . "<br>";
                             $result =exec_commande( $sql);
                         }
                         unset($tab_joueurs);
