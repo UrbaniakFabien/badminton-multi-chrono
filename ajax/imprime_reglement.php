@@ -46,7 +46,7 @@ $sql = "SELECT reg_joueurs_club,reg_joueurs_nom,reg_joueurs_montant,reg_joueurs_
         FROM tbl_regl_joueurs
         
         ORDER BY reg_joueurs_club, reg_joueurs_nom";
-$query = mysqli_query($connect, $sql);
+$query =exec_commande( $sql);
 
 $total = 0;
 $total_regle = 0;

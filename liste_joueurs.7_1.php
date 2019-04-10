@@ -8,7 +8,7 @@
  * ***************************************************************************** */
 //TODO table des décalages par id tournoi en minute pour le calcul des heures de convocation en fonction de l'heure de match
 
-$result = mysqli_query($connect, "SELECT * from titre");
+$result =exec_commande( "SELECT * from titre");
 $tab_decalage = array();
 $tab_frm_decalage = "<table><thead><tr><th>Lieu et date</td><th>Délai</th></tr></thead><tbody>";
 while ($data = mysqli_fetch_array($result)) {
@@ -27,7 +27,7 @@ $tab_frm_decalage .="</tbody></table>";
 
 $entete = "<table id='liste'>
          <thead><tr>";
-$result = mysqli_query($connect, "show columns from joueurs");
+$result =exec_commande( "show columns from joueurs");
 if (!$result) {
     $entete .= "<th>Pas d'information à traiter. Importez un fichier</th></tr></thead></table>";
     $corps = "";
@@ -55,7 +55,7 @@ if (!$result) {
     $sql = 'SELECT `Num`,`Joueur`,`Licences`,`Matchs`,`Salle`,`Convoqué le`,"00h00" as horaire_convocation, False as `Réglement` ,num_titre,`etat`, commentaire FROM joueurs order by num';
 
 // on envoie la requête
-    $req = mysqli_query($connect, $sql) or die('Erreur SQL !<br>' . $sql . '<br>' . mysqli_error());
+    $req =exec_commande( $sql) or die('Erreur SQL !<br>' . $sql . '<br>' . mysqli_error());
 
     $corps = "</thead><tbody>";
     while ($data = mysqli_fetch_assoc($req)) {
@@ -94,7 +94,7 @@ if (!$result) {
 					AND FIND_IN_SET (num_match,"' . $lst_match . '")>0';
         //Recherche match du joueur dans l'échéancier
         // et traitement si existe
-        $result = mysqli_query($connect, $sql);
+        $result =exec_commande( $sql);
         if ($data_ = mysqli_fetch_array($result)) {
             $decalage = $tab_decalage[$data["num_titre"]]["decalage_horaire_convocation"];
             if ($data_["horaire_convocation"] != "") {
@@ -134,7 +134,7 @@ if (!$result) {
                 FROM tbl_regl_joueurs 
                 WHERE reg_joueurs_nom = '{$clef_nom}' ";//AND reg_joueurs_club = '{$club}' ";
 
-        $result = mysqli_query($connect, $sql);
+        $result =exec_commande( $sql);
         if (($result->num_rows>0)) {
             while ($data_regl = mysqli_fetch_row($result)) {
 

@@ -15,7 +15,7 @@ foreach ($_POST as $key=>$value) {
     $sql= "UPDATE titre
            SET decalage_horaire_convocation = '$value'
            WHERE num_titre = $num";
-    mysqli_query($connect,$sql);
+   exec_commande($sql);
     } else {
         $message = "Format invalide !";
     }

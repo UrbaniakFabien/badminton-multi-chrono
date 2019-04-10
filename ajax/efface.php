@@ -32,13 +32,13 @@ if ($data=mysqli_fetch_assoc($result)) {
   if ($nbr==0) {
       $sql="DELETE 
             FROM param ".$filtre;
-      mysqli_query($connect,$sql);
+     exec_commande($sql);
       $sql="DELETE 
             FROM tbl_config_chrono ".$filtre;
-      mysqli_query($connect,$sql);
+     exec_commande($sql);
      /*$sql="DELETE 
            FROM tbl_couleurs ".$filtre;
-      mysqli_query($connect,$sql);*/
+     exec_commande($sql);*/
   }
 }            
 $sql="SELECT count(*) as nbr
@@ -53,6 +53,6 @@ if ($data=mysqli_fetch_assoc($result)) {
 if ($nbr==0) {
     $sql="DELETE 
           FROM titre ". $filtre;    
-    mysqli_query($connect,$sql);
+   exec_commande($sql);
 }
 ?>

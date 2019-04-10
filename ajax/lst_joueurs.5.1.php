@@ -31,7 +31,7 @@ if ($format == 0) {
 $sql .= " FROM joueurs
           WHERE num_titre=" . $num_titre . $filtre . " AND NOT ISNULL(Joueur)  GROUP BY `Joueur`,`Licences`;";
 //echo $sql;
-$result = mysqli_query($connect, $sql);
+$result =exec_commande( $sql);
 
 while ($data = mysqli_fetch_assoc($result)) {
     $donnee[] = $data;

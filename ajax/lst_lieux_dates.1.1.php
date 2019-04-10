@@ -40,7 +40,7 @@ if ($cible == "") {
         $sql.="FROM titre inner join joueurs on (titre.num_titre=joueurs.num_titre) " . $filtre . " group by lieu_date,titre.num_titre";
     }
 }
-$result = mysqli_query($connect,$sql);
+$result =exec_commande($sql);
 $donnee = array();
 /* Ajout du choix 'Tous' si demande de RAZ */
 if ($action == "raz") {

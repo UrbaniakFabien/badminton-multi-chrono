@@ -27,7 +27,7 @@ if ($type_sauvegarde!="") {
  $sql="DELETE 
        FROM ".$type_sauvegarde."tbl_config_chrono
        WHERE num_titre=".$num_titre;
- mysqli_query($connect,$sql);
+exec_commande($sql);
 
  $sql = "INSERT ".$type_sauvegarde."tbl_config_chrono values('".$t_l."', 
                                             '".$t_o."',

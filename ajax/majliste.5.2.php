@@ -22,7 +22,7 @@ set_time_limit(30);
           SET etat=" .$etat_joueur.",
               commentaire='".addslashes($commentaire)."' 
           WHERE num=".$num.";";
-  mysqli_query($connect,$sql);
+ exec_commande($sql);
   //Mise a jour de l'échéancier
   //Si WO alors mise à jours des match connu à l'état WO
   //Si retour à la position absent alors annule les matchs en WO
@@ -42,7 +42,7 @@ set_time_limit(30);
     $sql="UPDATE echeancier
           SET etat=".$etat_match."
           WHERE num_match in (".$data["matchs"]. ") and num_titre=".$num_titre;
-    mysqli_query($connect,$sql); 
+   exec_commande($sql); 
     
     //Cas de joueurs WO sur le même match  (cas rare!!)
     //Recherche des autres joueurs en WO dans cette même liste de joueurs
@@ -59,7 +59,7 @@ set_time_limit(30);
                WHERE num_match in (".$data["matchs"]. ") 
                     AND num_titre=".$num_titre." 
                     AND etat<>3" ;
-         mysqli_query($connect,$sql);
+        exec_commande($sql);
          //echo $sql.PHP_EOL; 
     }
   }

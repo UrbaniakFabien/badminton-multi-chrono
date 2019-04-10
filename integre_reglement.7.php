@@ -1,6 +1,6 @@
 <?php
 /********************************************************************************
- *  Module d'integration du fichier des réglements
+ *  Module d'integration du fichier des réglements : Inscriptions joueurs
  * FUR
  * 12/2017
  *
@@ -105,7 +105,7 @@ $("#frm_msg").dialog({ title:'Message',
 <?php include ("menu.5.1.php");?>
 <div class="container">
     <div class="page-header">
-        <h1>T&eacute;l&eacute;chargement Réglements joueurs</h1>
+        <h1>T&eacute;l&eacute;chargement Réglements joueurs depuis Inscription joueurs</h1>
     </div>
     <br />
     <span id="msg"></span>

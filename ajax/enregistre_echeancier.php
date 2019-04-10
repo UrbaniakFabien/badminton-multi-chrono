@@ -22,7 +22,7 @@
           FROM echeancier
           WHERE num_titre=".$num_titre;
     
-    mysqli_query($connect,$sql);//On supprime si les info existent déjà dans echeancier      
+   exec_commande($sql);//On supprime si les info existent déjà dans echeancier      
   } 
   else {
     $sql="INSERT INTO titre (lieu_date)
@@ -57,7 +57,7 @@
        //Enregistrement de la 'case' 
        $sql="INSERT INTO `echeancier` (num_titre,`Horaire`, `num_match`, `spe`, `tableau`, `etat`, heure_debut, heure_fin)
                                VALUES (".$num_titre.",'".str_replace(":","h",$horaire)."','".$num_match."','".$spe."','".addslashes($tableau)."',0,'00h00','00h00')";
-       mysqli_query($connect,$sql);
+      exec_commande($sql);
        $num_match++;
        $nbr_match++;
     }

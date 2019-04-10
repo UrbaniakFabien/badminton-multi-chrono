@@ -151,7 +151,7 @@ foreach ($fichier as $e_fichier) {
         } else {
             $lieu_date = trim(str_replace("Echéancier : ", "", $titre));
             $sql = "SELECT `num_titre` FROM `titre` WHERE  lieu_date='" . $lieu_date . "'";
-            $result = mysqli_query($connect, $sql);
+            $result =exec_commande( $sql);
 
             if ($data = mysqli_fetch_assoc($result)) {
                 $num_titre = $data["num_titre"];
@@ -169,14 +169,14 @@ foreach ($fichier as $e_fichier) {
                                  AND
                                  etat=0;";
                 }
-                mysqli_query($connect, $sql); //On supprime si les info existent déjà dans echeancier      
+               exec_commande( $sql); //On supprime si les info existent déjà dans echeancier      
             } else {
                 $sql = "INSERT INTO titre (lieu_date)
                         VALUES ('" . addslashes($lieu_date) . "');";
 
-                $result = mysqli_query($connect, $sql);
+                $result =exec_commande( $sql);
                 $sql = "SELECT MAX(num_titre) as id from titre;";
-                $result = mysqli_query($connect, $sql);
+                $result =exec_commande( $sql);
                 $data = mysqli_fetch_assoc($result);
                 $num_titre = $data["id"];
             }
@@ -233,7 +233,7 @@ foreach ($fichier as $e_fichier) {
                                       AND
                                       num_match=$num_match";
 
-                                $result = mysqli_query($connect, $sql);
+                                $result =exec_commande( $sql);
 
                                 if ($data = mysqli_fetch_assoc($result)) {
                                     $ajout = false; //pas dans la table alors pas d'ajout 
@@ -270,13 +270,13 @@ foreach ($fichier as $e_fichier) {
                       WHERE num_titre = $num_titre 
                       GROUP BY num_match HAVING count(*)>1) r0";
 
-        $result = mysqli_query($connect, $sql);
+        $result =exec_commande( $sql);
         //Suppression des num_match en double qui sont des "Pause"
 
         if ($data = mysqli_fetch_assoc($result)) {
             $sql = "DELETE FROM echeancier
                     WHERE num_titre = $num_titre and num_match  in ( {$data["lst_num_match"]}) and spe = 'Pause'";
-            mysqli_query($connect, $sql);
+           exec_commande( $sql);
         }
 
         //on memorise les informations nesessaires pour formuler la réponse
@@ -299,7 +299,7 @@ foreach ($fichier as $e_fichier) {
             $sql = "SELECT coul_specialite 
                       FROM tbl_couleurs
                       WHERE coul_specialite='" . $e_tab_spe . "'";
-            $result = mysqli_query($connect, $sql);
+            $result =exec_commande( $sql);
             //Si n'existe pas 
             if (!($data = mysqli_fetch_assoc($result))) {
                 //boucle tant que la couleur existe dans la table
@@ -309,7 +309,7 @@ foreach ($fichier as $e_fichier) {
                     $sql = "SELECT coul_specialite 
                               FROM tbl_couleurs
                               WHERE coul_couleur='" . $couleur . "'";
-                    $result = mysqli_query($connect, $sql);
+                    $result =exec_commande( $sql);
                     $ok = ($data = mysqli_fetch_assoc($result));
                 }
                 if ($e_tab_spe == 'Couleur_texte') {
@@ -329,12 +329,12 @@ foreach ($fichier as $e_fichier) {
 //Nettoyage en cas d'échéancier fusionné
 //On recherche les ligne en doublon sur le même horaire
 $sql = "Select num_titre,num_match from echeancier group by num_titre,num_match having count(num_match) > 1";
-$result = mysqli_query($connect, $sql);
+$result =exec_commande( $sql);
 //Parcourt du jeu d'enregistrement pour supprimer les doublons de type PAUSE
 while ($data = mysqli_fetch_assoc($result)) {
     $sql = "DELETE echeancier 
             WHERE num_titre=" . $data['num_titre'] . " AND num_match = " . $data['num_match'] . " AND UCASE(spe) = 'PAUSE' LIMIT 1";
-    mysqli_query($connect, $sql);
+   exec_commande( $sql);
 }
 //*****************************************************************
 echo json_encode($tab_titre); //Retourne le nombre d'enreg integrés

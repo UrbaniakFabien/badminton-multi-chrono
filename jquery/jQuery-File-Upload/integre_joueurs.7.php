@@ -37,7 +37,7 @@ foreach ($fichier as $e_fichier) {
       else {
                 //On vide la table temporaire
                 $sql="TRUNCATE tmp_joueurs";
-                mysqli_query($connect,$sql);
+               exec_commande($sql);
                 
                 //Test si ce tournoi existe déjà
                 $lieu_date=trim(str_replace("Joueurs en cours : ","",$titre));
@@ -53,7 +53,7 @@ foreach ($fichier as $e_fichier) {
                           FROM joueurs
                           WHERE etat>0 and num_titre=".$num_titre;
                  
-                    mysqli_query($connect,$sql);
+                   exec_commande($sql);
                    
                   }
               
@@ -61,7 +61,7 @@ foreach ($fichier as $e_fichier) {
                 $sql="DELETE 
                       FROM joueurs
                       WHERE num_titre=".$num_titre;
-                mysqli_query($connect,$sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysqli_error());
+               exec_commande($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysqli_error());
                 
                 }
                 else { 
@@ -137,7 +137,7 @@ foreach ($fichier as $e_fichier) {
                               
                               $sql_suite=$sql.$sql_suite;
                               $sql_suite=str_replace("N° licence :","",$sql_suite);
-                              mysqli_query($connect,$sql_suite) or die('Erreur SQL !<br>'.$sql_suite.'<br>'.mysqli_error());
+                             exec_commande($sql_suite) or die('Erreur SQL !<br>'.$sql_suite.'<br>'.mysqli_error());
                               $nbr_joueur++; //On incremente le nombre des joueurs importés
                          
                         }
@@ -153,7 +153,7 @@ foreach ($fichier as $e_fichier) {
                                INNER JOIN tmp_joueurs ON Licences = tmp_licence                                                            
                                SET etat = tmp_etat ,commentaire = tmp_commentaire
                                WHERE num_titre=".$num_titre;
-                        mysqli_query($connect,$sql);         
+                       exec_commande($sql);         
                     }
         }
   fclose($handle);
@@ -177,7 +177,7 @@ foreach ($tab_titre as $etab_titre) {
         $sql = "UPDATE `joueurs` 
                 SET `Licences`=round((rand()*100000),0) 
                 WHERE Licences='' and num_titre = ".$etab_titre["num_titre"].";";
-        mysqli_query($connect,$sql);
+       exec_commande($sql);
         $tab_titre[$i]["sans_licence"]= (mysqli_affected_rows($connect)>0) ? mysqli_affected_rows($connect):0;
   }
   $i++;

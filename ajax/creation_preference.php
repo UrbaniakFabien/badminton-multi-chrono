@@ -23,7 +23,7 @@
      $sql="DELETE
            FROM pref_titre
            WHERE num_titre=".$data["num_titre"];
-     mysqli_query($connect,$sql); 
+    exec_commande($sql); 
       //On nettoie la table param
      $sql = "DELETE 
              FROM pref_param
@@ -33,7 +33,7 @@
  //Ajout du nouvel enregistrement
  $sql="INSERT INTO pref_titre (`pref_nom`,`pref_description`) 
       VALUE ('".$pref_nom."','".$pref_description."');";
- mysqli_query($connect,$sql);
+exec_commande($sql);
  $sql="SELECT max(num_titre) as num_pref 
        FROM pref_titre";
  $result=mysqli_query($connect,$sql);

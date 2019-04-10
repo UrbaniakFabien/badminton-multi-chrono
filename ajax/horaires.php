@@ -33,7 +33,7 @@ $sql = "SELECT `horaire`, min(`heure_debut`) as reel
                                 and `num_titre` =$num_titre)
       GROUP BY horaire
       ORDER BY `horaire` ASC ";
-$result = mysqli_query($connect, $sql);
+$result =exec_commande( $sql);
 while ($data = mysqli_fetch_assoc($result)) {
     $data["horaire"] = trim($data["horaire"]);
     $data["reel"] = trim($data["reel"]);
@@ -78,7 +78,7 @@ for ($i = 1; $i < count($tab); $i++) {
 //0->complet
 if ($info_retour == 1) {
     $sql = "SELECT MAX(horaire) as dernier_horaire from echeancier where num_titre = $num_titre";
-    $result = mysqli_query($connect, $sql);
+    $result =exec_commande( $sql);
     $data = mysqli_fetch_assoc($result);
     $ecart = "";
     $type ="";

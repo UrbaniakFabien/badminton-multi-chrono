@@ -10,8 +10,8 @@ include ("connect.7.php");
  */
 $f = fopen("reglmnt.txt", "r");
 //On vide les tables à chaque traitement
-$result = mysqli_query($connect,"TRUNCATE `tbl_regl_clubs`;");
-$result = mysqli_query($connect,"TRUNCATE `tbl_regl_joueurs`;");
+$result =exec_commande("TRUNCATE `tbl_regl_clubs`;");
+$result =exec_commande("TRUNCATE `tbl_regl_joueurs`;");
 while ($ligne = fgets($f)) {
     if ($ligne != "") {
         $tab = explode(";", ($ligne));
@@ -41,7 +41,7 @@ while ($ligne = fgets($f)) {
                     if (isset($tab_joueurs)) {
                         $sql = "INSERT INTO tbl_regl_clubs (reg_club,reg_nbr_joueurs,reg_total,reg_deja_regle) VALUES ('" . implode("','", $tab_club) . "')";
                        
-                        $result = mysqli_query($connect, $sql);
+                        $result =exec_commande( $sql);
                         //reccupere aprés l'enregistrement la clef générée
                         $reg_joueurs_id_fk_club = mysqli_insert_id($connect);
                         //echo $sql . "<br>";
@@ -49,7 +49,7 @@ while ($ligne = fgets($f)) {
                             $e_tab_joueurs["reg_joueurs_regle"] = $ok_paye;
                             $sql = "INSERT INTO tbl_regl_joueurs (reg_joueurs_id_fk_club," . implode(",", array_keys($e_tab_joueurs)) . ") VALUES ($reg_joueurs_id_fk_club,'" . implode("','", $e_tab_joueurs) . "')";
                             //echo $sql . "<br>";
-                            $result = mysqli_query($connect, $sql);
+                            $result =exec_commande( $sql);
                             
                         }
                         unset($tab_joueurs);

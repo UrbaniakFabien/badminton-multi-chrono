@@ -12,6 +12,6 @@ foreach ($_POST as $key=>$couleur) {
           SET coul_couleur='".str_replace("#","",$couleur)."'
           WHERE coul_id_titre=0 
                 AND coul_specialite='".$key."'";
-    mysqli_query($connect,$sql);
+   exec_commande($sql);
 }
 ?>

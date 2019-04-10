@@ -12,9 +12,25 @@
  *Mise en tableau des requetes        
  **********************************************/
 
+function exec_commande($sql){
+    global $connect;
+    try {
+        $retour =mysqli_query($connect,$sql);
+    } catch (Exception $e) {
+        $f=fopen("logs/sql_error_" .date(ymd).".log","a");
+        $ligne[] = str_repeat("=",80);
+        $ligne[] = date("d-m-Y h:i") ." : " . $e->getMessage(); 
+        $ligne[] = $sql;
+        $ligne[] = "Dans ". $_SERVER["PHP_SELF"];
+        $ligne[] = str_repeat("=",80);
+        fwrite($f,implode("\n",$ligne)."\n");
+        fclose($f);
+    }
+    return $retour;
+}
 
 $tab_config=parse_ini_file("config.ini");
-$sql=array();
+$sql=[];
 
 
   $serveur=$tab_config["nom_serveur_sql"];
@@ -187,6 +203,7 @@ $sql[] = "CREATE TABLE IF NOT EXISTS $db.`tbl_regl_joueurs` (
   `reg_joueurs_date` date NOT NULL,
   `reg_joueurs_montant` float NOT NULL,
   `reg_joueurs_regle` tinyint(1) NOT NULL DEFAULT '0',
+  `reg_mode_reglement` smallint(6) DEFAULT '0',
   PRIMARY KEY (`reg_joueurs_id`),
   KEY `reg_joueurs_id_fk_club` (`reg_joueurs_id_fk_club`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;";

@@ -23,7 +23,7 @@ include("connect.7.php");
 include ("couleurs_ech.5.2.php");
 //Titre donné à la page
 $sql = "SELECT lieu_date from titre where num_titre=" . $num_titre;
-$result = mysqli_query($connect, $sql);
+$result =exec_commande( $sql);
 $data = mysqli_fetch_assoc($result);
 $titre = "Prochain match " . $data["lieu_date"];
 //
@@ -130,8 +130,7 @@ $titre = "Prochain match " . $data["lieu_date"];
         <ul>\n\
             <li><a>Taille</a>\n\
                 <ul>\n\
-                    <li>/2</li>\n\
-                    <li>*2</li>\n\
+                    <li><div id='choix_taille' style='height:10px;width:100%;'> <div id='custom-handle' class='ui-slider-handle'></div></div></li>\n\
                 </ul>\n\
             </li>\n\
             <li><a>Rafraichissement</a>\n\
@@ -229,23 +228,7 @@ $titre = "Prochain match " . $data["lieu_date"];
                                         break;
                                 }
 
-                            case "/2":
-                                taille = $(".grand_car").css("font-size");
-                                taille = parseInt(taille) / 2;
-                                $(".grand_car").css("font-size", taille + "px");
-                                $(".grand_car").css("font-size", taille + "px");
-                                taille = $(".moyen_car").css("font-size");
-                                taille = parseInt(taille) / 2;
-                                $(".moyen_car").css("font-size", taille + "px");
-                                break;
-                            case "*2":
-                                taille = $(".grand_car").css("font-size");
-                                taille = parseInt(taille) * 2;
-                                $(".grand_car").css("font-size", taille + "px");
-                                taille = $(".moyen_car").css("font-size");
-                                taille = parseInt(taille) * 2;
-                                $(".moyen_car").css("font-size", taille + "px");
-                                break;
+                          
                         }
                     }
                 });
@@ -253,8 +236,22 @@ $titre = "Prochain match " . $data["lieu_date"];
                 connect();
                 //ajout des class pour les selections par défaut dans le menu
                 $(".sel").addClass('ui-menu-icon ui-icon-check ui-icon');
-                
-                
+                 var handle = $( "#custom-handle" );
+               $("#choix_taille").slider({
+                   min:100,
+                   max:600,
+                   value:300,
+                    create: function() {
+                      handle.text( $( this ).slider( "value" ) );
+                    },
+                    slide: function( event, ui ) {
+                      handle.text( ui.value );
+                      taille = ui.value;
+                      $(".grand_car").css("font-size", taille + "px");
+                      $(".moyen_car").css("font-size", (taille/3) + "px");
+                      $(".petit_car").css("font-size", (taille/10) + "px");
+                    }
+                  });
              /*****************************************************************************
              * Ouverture du formulaire changement d'echeancier
              *****************************************************************************/
@@ -348,6 +345,11 @@ $titre = "Prochain match " . $data["lieu_date"];
                 color:white;
                 text-align:center;
             }
+            .petit_car {
+                font-size : 20px;
+                color:white;
+                text-align:center;
+            }
             @font-face {  
                 font-family: "digital";  
                 src: url( css/fonts/digitaldreamfat.eot ); /* IE */  
@@ -396,6 +398,14 @@ $titre = "Prochain match " . $data["lieu_date"];
                 }
             }
 
+  #custom-handle {
+    width: 10px;
+    height: 10px;
+/*    top: 50%;*/
+    margin-top: -.8em;
+    text-align: center;
+    line-height: 1.6em;
+  }
         </style>
 
     </head>
@@ -417,7 +427,7 @@ $titre = "Prochain match " . $data["lieu_date"];
                 </tr>
             </table>-->
         <div id="contenant">
-            <div id="horloge">
+            <div id="horloge" class='petit_car'>
 
             </div>
             <div class="element moyen_car">

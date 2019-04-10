@@ -12,14 +12,14 @@
     $sql="DELETE 
           FROM pref_param 
           WHERE num_titre=".$num_pref.";";
-    mysqli_query($connect,$sql);
+   exec_commande($sql);
     $sql="DELETE 
           FROM pref_tbl_config_chrono 
           WHERE num_titre=".$num_pref.";";
-    mysqli_query($connect,$sql);
+   exec_commande($sql);
     $sql="DELETE FROM pref_titre
           WHERE num_titre=".$num_pref.";";
-    mysqli_query($connect,$sql);
+   exec_commande($sql);
     
  } 
  echo $sql;

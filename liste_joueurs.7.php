@@ -8,7 +8,7 @@
  * ***************************************************************************** */
 //TODO table des décalages par id tournoi en minute pour le calcul des heures de convocation en fonction de l'heure de match
 
-$result = mysqli_query($connect, "SELECT * from titre");
+$result =exec_commande( "SELECT * from titre");
 $tab_decalage = array();
 while ($data = mysqli_fetch_array($result)) {
     if ($data["decalage_horaire_convocation"] != "") {
@@ -23,7 +23,7 @@ while ($data = mysqli_fetch_array($result)) {
 
 $entete = "<table id='liste'>
          <thead><tr>";
-$result = mysqli_query($connect, "show columns from joueurs");
+$result =exec_commande( "show columns from joueurs");
 if (!$result) {
     $entete .= "<th>Pas d'information à traiter. Importez un fichier</th></tr></thead></table>";
     $corps = "";
@@ -51,7 +51,7 @@ if (!$result) {
     $sql = 'SELECT `Num`,`Joueur`,`Licences`,`Matchs`,`Salle`,`Convoqué le`,"00h00" as horaire_convocation, num_titre,`etat`, commentaire FROM joueurs order by num';
 
 // on envoie la requête
-    $req = mysqli_query($connect, $sql) or die('Erreur SQL !<br>' . $sql . '<br>' . mysqli_error());
+    $req =exec_commande( $sql) or die('Erreur SQL !<br>' . $sql . '<br>' . mysqli_error());
 
     $corps = "</thead><tbody>";
     while ($data = mysqli_fetch_assoc($req)) {
@@ -90,7 +90,7 @@ if (!$result) {
 					AND FIND_IN_SET (num_match,"' . $lst_match . '")>0';
         //Recherche match du joueur dans l'échéancier
         // et traitement si existe
-        $result = mysqli_query($connect, $sql);
+        $result =exec_commande( $sql);
         if ($data_ = mysqli_fetch_array($result)) {
             $decalage = 30; //décalage par défaut 30 minutes
             foreach ($tab_decalage as $e) {

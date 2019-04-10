@@ -17,7 +17,7 @@ $tables = ['titre','echeancier','joueurs', 'param', 'tbl_config_chrono', 'pref_t
 $liste_tables = implode(",",$tables);
 //Effacement de tables
  $sql = "DROP TABLE IF EXISTS $liste_tables";
- mysqli_query($connect,$sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysqli_error($connect));
+exec_commande($sql) or die('Erreur SQL !<br>'.$sql.'<br>'.mysqli_error($connect));
 //Suppression de la session
  
   unset($_SESSION['_login']);

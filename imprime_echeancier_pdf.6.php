@@ -90,7 +90,7 @@ include ("fpdf/mc_table.php");
 
 //Titre donné à la page
 $sql = "SELECT lieu_date from titre where num_titre=" . $num_titre;
-$result = mysqli_query($connect,$sql);
+$result =exec_commande($sql);
 $data = mysqli_fetch_assoc($result); 
 
 //Titre en fonction du type d'échéancier demandé
@@ -153,7 +153,7 @@ $sql = "SELECT max(nbr_match) as max_nbr_match
               from echeancier 
               where num_titre=" . $num_titre . " group by Horaire) tbl_tmp";
 // on envoie la requête
-$result = mysqli_query($connect,$sql); //or die('Erreur SQL !'.'<br>'.mysqli_error());
+$result =exec_commande($sql); //or die('Erreur SQL !'.'<br>'.mysqli_error());
 $data = mysqli_fetch_assoc($result);
 $nbr_col = $data["max_nbr_match"]; //Nombre de lignes retournées = nombre de colonnes a imprimer
 //On initialise les tables de mises en forme du tableau
@@ -191,7 +191,7 @@ $sql = "SELECT * FROM `echeancier`
         WHERE num_titre=" . $num_titre . "
         ORDER BY `Horaire`,`num_match`";
 // on envoie la requête
-$result = mysqli_query($connect,$sql); //or die('Erreur SQL !'.'<br>'.mysqli_error());
+$result =exec_commande($sql); //or die('Erreur SQL !'.'<br>'.mysqli_error());
 //Flag pour indiquer que la boucle  tourne pour la premiere  fois =>on connait alors le nombre de colonne de l'echeancier
 $prem = true;
 if ($result) {

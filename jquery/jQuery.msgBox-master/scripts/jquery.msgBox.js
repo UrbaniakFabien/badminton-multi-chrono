@@ -137,6 +137,7 @@ function msg (options) {
             "<input type=\"" + input.type + "\" name=\"" + input.name + "\" value=\"" + (typeof input.value == "undefined" ? "" : input.value) + "\" "+
             (typeof input.size!==undefined?" size='"+input.size+"' ":"")+
             (typeof input.maxlength!==undefined?" maxlength='"+input.maxlength+"' ":"")+
+            (typeof input.width!==undefined?" style='width:"+input.width+"' ":"")+
             " />" +
             "</div>";
         }

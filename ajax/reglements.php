@@ -12,7 +12,7 @@ $sql = "SELECT reg_joueurs_id,reg_joueurs_nom,reg_joueurs_montant,reg_joueurs_re
         FROM tbl_regl_joueurs
         WHERE reg_joueurs_id_fk_club =(SELECT reg_joueurs_id_fk_club from tbl_regl_joueurs WHERE reg_joueurs_id = $id) 
         ORDER BY reg_joueurs_nom";
-$query = mysqli_query($connect, $sql);
+$query =exec_commande( $sql);
 $ligne = "<div id='frm_reg'><table><thead><tr><th>Nom Joueur</th><th>Montant</th><th>Réglement</th></tr></thead><tbody>";
 $total = 0;
 $total_regle = 0;

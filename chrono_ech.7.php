@@ -115,21 +115,21 @@ if ($num_titre > 0) {
     // en fonction de l'échéancier en cours
     //Lecture de l'horaire le plus tôt
     $sql = "select min(horaire) as min_horaire from echeancier where num_titre=" . $num_titre;
-    $result = mysqli_query($connect, $sql);
+    $result =exec_commande( $sql);
     $nbr_terrain = 1; //Nombre de terrain min par défaut. Sera passé en parametre à la fonction de choix de nombre de terrain 
     $num_terrain = "";
     if ($data = mysqli_fetch_row($result)) {
         //Lecture de tous les matchs de cet horaire triés par ordre de n° match
         $sql = "select num_match from echeancier where horaire='" . $data[0] . "'and num_titre=" . $num_titre . " order by num_match;";
 
-        $result = mysqli_query($connect, $sql);
+        $result =exec_commande( $sql);
         $nbr_terrain = mysqli_num_rows($result); //Nombre d'enregistrements = Nombre de terrains
         //On cherche tous les N° de match qui ne sont pas des pauses et pas deja joués et pas WO dans la limite du nombre de terrains
         $sql = "select num_match from echeancier 
                         where horaire>='" . $data[0] . "' and spe<>'Pause' and etat in (0,-1) and num_titre=" . $num_titre . " 
                         order by num_match limit " . $nbr_terrain . ";";
 
-        $result = mysqli_query($connect, $sql);
+        $result =exec_commande( $sql);
         while ($data = mysqli_fetch_row($result)) {
             $num_terrain.= $data[0] . ",";
         }
@@ -175,7 +175,7 @@ if ($num_titre > 0) {
             FROM joueurs
             WHERE num_titre=" . $num_titre . "
             LIMIT 1";
-    $result = mysqli_query($connect, $sql);
+    $result =exec_commande( $sql);
     /*     * *****************************************************************************
      * Determine si une liste de joueurs existe
      * si oui on permet l'affichage de la liste des joueurs par terrain/match dans le client
@@ -197,7 +197,7 @@ $couleur_salle = "";
 $zoom = 1;
 if ($num_titre > 0) {
     $sql = "select * from tbl_config_chrono where num_titre=" . $num_titre;
-    $result = mysqli_query($connect, $sql);
+    $result =exec_commande( $sql);
     if ($data = mysqli_fetch_array($result)) {
         $couleur_terrain_libre = $data["Conf_coul_libre"];
         $couleur_terrain_occupe = $data["Conf_coul_occup"];

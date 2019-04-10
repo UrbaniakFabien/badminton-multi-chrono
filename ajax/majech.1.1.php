@@ -34,7 +34,7 @@ set_time_limit(30);
                 break;
   }
   $sql.=" where num_match=".$num." and num_titre=".$num_titre.";";
-  mysqli_query($connect,$sql);
+ exec_commande($sql);
 
   /* Gestion des match mis en WO par le pointage des joueurs */
   $sql="SELECT num_match, etat

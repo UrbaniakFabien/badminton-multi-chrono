@@ -43,7 +43,7 @@ $tab_classe = substr($tab_classe, 2);
 $sql = "SELECT * 
         FROM titre 
         WHERE num_titre=" . $num_titre;
-$result = mysqli_query($connect,$sql);
+$result =exec_commande($sql);
 $data = mysqli_fetch_assoc($result);
 $site=$data["lieu_date"];
 //Traitement des données pour decalage horaire : par defaut 00h30
@@ -78,7 +78,7 @@ $sql = "SELECT * FROM `echeancier`
                 order by `Horaire`,`num_match`";
 
 // on envoie la requête
-$result = mysqli_query($connect,$sql); //or die('Erreur SQL !'.'<br>'.mysqli_error());
+$result =exec_commande($sql); //or die('Erreur SQL !'.'<br>'.mysqli_error());
 if ($result) {
     if (mysqli_num_rows($result) > 0) {
         

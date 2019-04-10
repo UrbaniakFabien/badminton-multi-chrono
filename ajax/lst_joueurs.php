@@ -26,7 +26,7 @@ $sql = "SELECT Joueur as value, Licences as id
         FROM joueurs
         WHERE  $filtre   NOT ISNULL(Joueur)  GROUP BY `Joueur`,`Licences`;";
 //echo $sql;
-$result = mysqli_query($connect, $sql);
+$result =exec_commande( $sql);
 
 while ($data = mysqli_fetch_assoc($result)) {
     $donnee[] = $data;

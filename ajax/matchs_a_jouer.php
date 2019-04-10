@@ -15,7 +15,7 @@ $num_titre=$_SESSION["num_titre"];
           ORDER BY num_match";
 
 // on envoie la requête
-$result = mysqli_query($connect,$sql); //or die('Erreur SQL !'.'<br>'.mysqli_error());
+$result =exec_commande($sql); //or die('Erreur SQL !'.'<br>'.mysqli_error());
      
 while ($data=mysqli_fetch_assoc($result))  {
    $donnee[]=$data;

@@ -37,18 +37,16 @@ include ("liste_joueurs.7_1.php");
 
         <link href="jquery/DataTables/datatables.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" title="currentStyle" href="css/liste.css" />
-        <!--        <link rel="stylesheet" type="text/css" title="currentStyle" href="jquery/DataTables-1.9.0/media/css/demo_page.css" />
-                <link rel="stylesheet" type="text/css" title="currentStyle" href="jquery/DataTables-1.9.0/media/css/demo_table.css" />-->
+    
         <link href="jquery/jQuery.msgBox-master/styles/msgBoxLight.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="jquery/jquery-2.1.3.js"></script>
         <script type="text/javascript" src="js/menu.js"></script>
         <script type="text/javascript" src="jquery/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
         <script src="jquery/DataTables/datatables.min.js" type="text/javascript"></script>
-<!--        <script type="text/javascript" src="jquery/DataTables-1.9.0/media/js/jquery.DataTables.min.js"></script>
-        <script type="text/javascript" src="jquery/DataTables-1.9.0/extras/FixedHeader/js/FixedHeader.js"></script>-->
+
         <script src="jquery/DataTables/Buttons-1.5.6/js/dataTables.buttons.min.js" type="text/javascript"></script>
-<!--        <script src="jquery/DataTables/Buttons-1.5.6/js/buttons.print.min.js" type="text/javascript"></script>-->
+
         <script src="jquery/DataTables/pdfmake-0.1.36/pdfmake.min.js" type="text/javascript"></script>
         <script src="jquery/DataTables/pdfmake-0.1.36/vfs_fonts.js" type="text/javascript"></script>
         <script src="jquery/DataTables/Buttons-1.5.6/js/buttons.html5.min.js" type="text/javascript"></script>
@@ -56,6 +54,7 @@ include ("liste_joueurs.7_1.php");
         <script type="text/javascript" src="jquery/js/ColumnFilterWidgets.js" ></script>
 
         <script type="text/javascript">
+            var message_entete_liste = "Horaires à titre indicatifs";
             if (!$.browser) {
                 $.browser = {chrome: false, mozilla: false, opera: false, msie: false, safari: false};
                 var ua = navigator.userAgent;
@@ -223,9 +222,13 @@ include ("liste_joueurs.7_1.php");
                     buttons: [
                         {
                             extend: 'pdfHtml5',
-                            messageTop: "Liste des horaires de convocation",
+                            messageTop: function () {
+                               
+                                return [{text:message_entete_liste,fontSize:15,color:'red'}] ;
+                            },
+                            title: "Liste horaires convocations joueurs",
                             exportOptions: {
-                                columns: ':visible'
+                                columns: [1, 2, 3, 4, 5, 6]
                             },
                             text: 'Impression liste'
                         }
@@ -244,7 +247,12 @@ include ("liste_joueurs.7_1.php");
                 //Ajout des options sur liste de pointage
                 $("#liste_pointage").html("<a href='#'>Table de pointage</a>\n\
                                             <ul>\n\
-                                                <li><a id='imprime'>Impression PDF</a></li>\n\
+                                                <li>Impressions\n\
+                                                    <ul>\n\
+                                                        <li><a id='imprime_liste' title='En fonction du filtre'>Liste des joueurs selon filtre</a></li>\n\
+                                                        <li><a id='imprime_reglement'>Réglement des joueurs</a></li>\n\
+                                                    </ul>\n\
+                                                </li>\n\
                                                 <li><a id='Change_delai'>Change convocations</a></li>\n\
                                             </ul>");
                 /***************************************************************
@@ -252,9 +260,32 @@ include ("liste_joueurs.7_1.php");
                  * *************************************************************/
                 $("#menuprinc").menu({position: {using: positionnerSousMenu}});
 
-                $('#imprime').click(function (e) {
+                //==============================================================
+                //Impression liste joueurs
+                //==============================================================
+                $('#imprime_liste').click(function (e) {
+                    $.msgBox({
+                        title: "Complement texte entete de liste",
+                        type: "prompt",
+                        inputs: [{header: "Texte en entete", type: "text", width:"300px", size:"200", name: "texte_entete", value: message_entete_liste}],
+                        buttons: [{value: "OK"}, {value: "Annule"}],
+                        success: function (result, values) {
+                            if (result == 'OK') {
+                                $(values).each(function (index, input) {
+                                    message_entete_liste = input.value;
+                                });
+                                $(".msgBoxContainer").after( 'Préparation en cours <img src="images/wait.gif" style="width:7%">');
+                                $(".buttons-pdf").click();
+                            }
+                        }
+                    });
 
-                    $(".buttons-pdf").click();
+                });
+                //==============================================================
+                //Appel Impression reglement oueurs
+                //==============================================================
+                $('#imprime_reglement').click(function (e) {
+                    imprime_reglement();
                 });
                 /******************************************************************
                  * Formulaire saisi du commentaire sur joueur état absence autorisée
@@ -364,7 +395,30 @@ include ("liste_joueurs.7_1.php");
                     var blob = new Blob(byteArrays, {type: contentType});
                     return blob;
                 }
+                //==============================================================
+                //Impression de la liste des réglement
+                //==============================================================
+                function imprime_reglement() {
+                    $.post("ajax/imprime_reglement.php",
+                            function (data) {
+                                var PdfData = b64toBlob(data, 'application/pdf;base64;');
+                                //IE11 & Edge
+                                if (navigator.msSaveBlob) {
+                                    navigator.msSaveBlob(PdfData, "Reglements.pdf");
+                                } else {
+                                    //In FF link must be added to DOM to be clicked
+                                    var link = document.createElement('a');
+                                    link.href = window.URL.createObjectURL(PdfData);
+                                    link.setAttribute('download', "reglements.pdf");
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                }
 
+                            }
+                    );
+                }
+                ;
                 /*************************************************
                  * formulaire info reglements
                  */
@@ -378,24 +432,7 @@ include ("liste_joueurs.7_1.php");
                         {
                             text: "Imprime",
                             'click': function () {
-                                $.post("ajax/imprime_reglement.php",
-                                        function (data) {
-                                            var PdfData = b64toBlob(data, 'application/pdf;base64;');
-                                            //IE11 & Edge
-                                            if (navigator.msSaveBlob) {
-                                                navigator.msSaveBlob(PdfData, "Reglements.pdf");
-                                            } else {
-                                                //In FF link must be added to DOM to be clicked
-                                                var link = document.createElement('a');
-                                                link.href = window.URL.createObjectURL(PdfData);
-                                                link.setAttribute('download', "reglements.pdf");
-                                                document.body.appendChild(link);
-                                                link.click();
-                                                document.body.removeChild(link);
-                                            }
-
-                                        }
-                                );
+                                imprime_reglement();
                                 $(this).dialog("close");
                             },
                             icons: {primary: 'ui-icon-print'}
@@ -456,18 +493,18 @@ include ("liste_joueurs.7_1.php");
                             text: "Valide",
                             'click': function () {
                                 $.ajax({
-                                    url:'ajax/maj_delai_convoc.php',
-                                    type:'POST',
-                                    dataType:'json',
-                                    data:$("#frm_change_delai").serialize(),
-                                    success:function(data){
-                                        if data.message = 'ok' {
-                                            window.location="liste_pointage.7_2.php";
+                                    url: 'ajax/maj_delai_convoc.php',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: $("#frm_change_delai").serialize(),
+                                    success: function (data) {
+                                        if (data.message == 'ok') {
+                                            window.location = "liste_pointage.7_2.php";
                                         } else {
                                             $.msgBox({
-                                                title:"Avertissement",
-                                                content:data.message,
-                                                type:"warning"
+                                                title: "Avertissement",
+                                                content: data.message,
+                                                type: "warning"
                                             });
                                         }
                                     }
@@ -508,6 +545,7 @@ include ("liste_joueurs.7_1.php");
 
     </head>
     <body>
+         <img src="images/wait.gif" style="width:7%;display:none"><!-- sert a pre-charger l'image -->
         <?php include ("menu.5.1.php"); ?>
 
         Filtre :  <input type="radio" id="filtre" name="filtre" value="99" checked/>Tous&nbsp;
@@ -526,7 +564,7 @@ include ("liste_joueurs.7_1.php");
         echo $formulaire_reglement;
         ?>
         <form id='frm_change_delai'>
-            <?php echo $tab_frm_decalage;?>
+            <?php echo $tab_frm_decalage; ?>
         </form>
     </body>
 </html>
