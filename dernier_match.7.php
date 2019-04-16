@@ -9,10 +9,10 @@ session_start();
 $num_titre = isset($_GET["num_titre"]) ? $_GET["num_titre"] : 0;
 if ($num_titre == 0) {
     $num_titre = isset($_SESSION["num_titre"]) ? $_SESSION["num_titre"] : 0;
-} 
+}
 $appelant = "dernier_match.7";
 if ($num_titre == 0) {
-   
+
     $titre = "Dernier match";
     include ("demande_num.7.php");
     exit();
@@ -23,7 +23,7 @@ include("connect.7.php");
 include ("couleurs_ech.5.2.php");
 //Titre donné à la page
 $sql = "SELECT lieu_date from titre where num_titre=" . $num_titre;
-$result =exec_commande( $sql);
+$result = exec_commande($sql);
 $data = mysqli_fetch_assoc($result);
 $titre = "Prochain match " . $data["lieu_date"];
 //
@@ -54,12 +54,12 @@ $titre = "Prochain match " . $data["lieu_date"];
                  *reponse contient le Num et l'état des lignes modifiées
                  *******************************************************************************/
                 var num;
-                if (reponse.encours.Num_match.length > 0){
+                if (reponse.encours.Num_match.length > 0) {
                     if (isNaN(reponse.encours.Num_match)) {
                         num = reponse.encours.Num_match;
                     } else
                     {
-                        num = parseInt(reponse.encours.Num_match) + 1; 
+                        num = parseInt(reponse.encours.Num_match) + 1;
                     }
                     $("#num_match").html(num);
                     $("#en_attente").html(reponse.en_attente);
@@ -67,11 +67,11 @@ $titre = "Prochain match " . $data["lieu_date"];
 //                    $("#heure_debut").html(reponse[0].heure_debut);
 //                    $("#num_terrain").html(reponse[0].terrain);
 //                    $("#spe").html(reponse[0].spe);
-            }
-            //Appel Tempo toutes les 10 secondes
-            var t = setTimeout("connect();", tempo * 1000);
-            }
-            ;
+                }
+                //Appel Tempo toutes les 10 secondes
+                var t = setTimeout("connect();", tempo * 1000);
+            };
+            
 
 
 
@@ -80,14 +80,17 @@ $titre = "Prochain match " . $data["lieu_date"];
 
                 $.post('ajax/info_match.1.php', {}, callComplete, 'json');
                 $.ajax({
-                    type    : 'GET',
-                    url     : "ajax/horaires.php",
+                    type: 'GET',
+                    url: "ajax/horaires.php",
                     dataType: 'json',
-                    timeout : 10000,
-                    async   : false,
+                    timeout: 10000,
+                    async: false,
                     data: {type_reponse: 1},
                     success: function (reponse) {
-                        $("#ecart").html("<span style='color:" +reponse.couleur + ";'>" +reponse.type + " " +reponse.ecart);
+                        if (reponse.ecart == "00h00") {
+                            reponse.ecart = "";
+                        }
+                        $("#ecart").html("<span style='color:" + reponse.couleur + ";'>" + reponse.type + " " + reponse.ecart);
                     }
                 });
 
@@ -95,8 +98,8 @@ $titre = "Prochain match " . $data["lieu_date"];
             ;
             // Initialisation du document
             $(document).ready(function () {
-            
-              /***********************************************************************
+
+                /***********************************************************************
                  * affichage et gestion du selecteur pour deroulage listes
                  ***********************************************************************/
                 $(".deroule").button({icons: {
@@ -125,7 +128,7 @@ $titre = "Prochain match " . $data["lieu_date"];
 
                             return false;
                         });
-            //Complement de menu
+                //Complement de menu
                 $("#dernier_match").html("<a href='#'>Prochain match</a>\n\
         <ul>\n\
             <li><a>Taille</a>\n\
@@ -228,38 +231,36 @@ $titre = "Prochain match " . $data["lieu_date"];
                                         break;
                                 }
 
-                          
+
                         }
                     }
                 });
-//Lancement de la boucle de  rafraichissment des données
-                connect();
                 //ajout des class pour les selections par défaut dans le menu
                 $(".sel").addClass('ui-menu-icon ui-icon-check ui-icon');
-                 var handle = $( "#custom-handle" );
-               $("#choix_taille").slider({
-                   min:100,
-                   max:600,
-                   value:300,
-                    create: function() {
-                      handle.text( $( this ).slider( "value" ) );
+                var handle = $("#custom-handle");
+                $("#choix_taille").slider({
+                    min: 100,
+                    max: 600,
+                    value: 300,
+                    create: function () {
+                        handle.text($(this).slider("value"));
                     },
-                    slide: function( event, ui ) {
-                      handle.text( ui.value );
-                      taille = ui.value;
-                      $(".grand_car").css("font-size", taille + "px");
-                      $(".moyen_car").css("font-size", (taille/3) + "px");
-                      $(".petit_car").css("font-size", (taille/10) + "px");
+                    slide: function (event, ui) {
+                        handle.text(ui.value);
+                        taille = ui.value;
+                        $(".grand_car").css("font-size", taille + "px");
+                        $(".moyen_car").css("font-size", (taille / 3) + "px");
+                        $(".petit_car").css("font-size", (taille / 10) + "px");
                     }
-                  });
-             /*****************************************************************************
-             * Ouverture du formulaire changement d'echeancier
-             *****************************************************************************/
-            function change_ech() {
-                $("#modal_form").dialog("open");
-            }
-            
-             /*************************************************************************
+                });
+                /*****************************************************************************
+                 * Ouverture du formulaire changement d'echeancier
+                 *****************************************************************************/
+                function change_ech() {
+                    $("#modal_form").dialog("open");
+                }
+
+                /*************************************************************************
                  * Definition du formulaire choix d'echeancier
                  *************************************************************************/
                 $("#modal_form").dialog({title: 'Choix lieu et date',
@@ -296,8 +297,9 @@ $titre = "Prochain match " . $data["lieu_date"];
                         $("#num_titre").val(ui.item.id);
                     }
                 });
-            
-            
+
+                //Lancement de la boucle de  rafraichissment des données
+                connect();
             });//fin document.ready
 
 
@@ -398,14 +400,14 @@ $titre = "Prochain match " . $data["lieu_date"];
                 }
             }
 
-  #custom-handle {
-    width: 10px;
-    height: 10px;
-/*    top: 50%;*/
-    margin-top: -.8em;
-    text-align: center;
-    line-height: 1.6em;
-  }
+            #custom-handle {
+                width: 10px;
+                height: 10px;
+                /*    top: 50%;*/
+                margin-top: -.8em;
+                text-align: center;
+                line-height: 1.6em;
+            }
         </style>
 
     </head>

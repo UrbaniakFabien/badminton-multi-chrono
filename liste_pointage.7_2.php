@@ -37,7 +37,7 @@ include ("liste_joueurs.7_1.php");
 
         <link href="jquery/DataTables/datatables.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" type="text/css" title="currentStyle" href="css/liste.css" />
-    
+
         <link href="jquery/jQuery.msgBox-master/styles/msgBoxLight.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="jquery/jquery-2.1.3.js"></script>
         <script type="text/javascript" src="js/menu.js"></script>
@@ -223,8 +223,8 @@ include ("liste_joueurs.7_1.php");
                         {
                             extend: 'pdfHtml5',
                             messageTop: function () {
-                               
-                                return [{text:message_entete_liste,fontSize:15,color:'red'}] ;
+
+                                return [{text: message_entete_liste, fontSize: 15, color: 'red'}];
                             },
                             title: "Liste horaires convocations joueurs",
                             exportOptions: {
@@ -267,14 +267,14 @@ include ("liste_joueurs.7_1.php");
                     $.msgBox({
                         title: "Complement texte entete de liste",
                         type: "prompt",
-                        inputs: [{header: "Texte en entete", type: "text", width:"300px", size:"200", name: "texte_entete", value: message_entete_liste}],
+                        inputs: [{header: "Texte en entete", type: "text", width: "300px", size: "200", name: "texte_entete", value: message_entete_liste}],
                         buttons: [{value: "OK"}, {value: "Annule"}],
                         success: function (result, values) {
                             if (result == 'OK') {
                                 $(values).each(function (index, input) {
                                     message_entete_liste = input.value;
                                 });
-                                $(".msgBoxContainer").after( 'Préparation en cours <img src="images/wait.gif" style="width:7%">');
+                                $(".msgBoxContainer").after('Préparation en cours <img src="images/wait.gif" style="width:7%">');
                                 $(".buttons-pdf").click();
                             }
                         }
@@ -452,34 +452,58 @@ include ("liste_joueurs.7_1.php");
                  */
                 $("#frm_reglement").on('click', '.saisie_reglement', function () {
                     var flag = 0,
-                            id = $(this).data('id_reglement');
-
-                    if ($(this).attr('src') === "images/regle.png") {
-                        $(this).attr('src', "images/en_attente.png");
+                            $this = $(this),
+                            id = $this.data('id_reglement');
+                    //permutation de l'image dans le formulaire $(this) et dans le tableau $(".id_")
+                    if ($this.attr('src') === "images/regle.png") {
+                        $this.attr('src', "images/en_attente.png");
                         $(".id_" + id).attr('src', "images/en_attente.png");
                         flag = 0;
                     } else {
-                        $(this).attr('src', "images/regle.png");
+                        $this.attr('src', "images/regle.png");
                         $(".id_" + id).attr('src', "images/regle.png");
                         flag = 1;
                     }
-                    $.msgBox({title: "Mode de r&eacute;glement",
-                        type: 'prompt',
-                        inputs: [
-                            {header: "Chéque", type: "radio", name: "mode", value: "1"},
-                            {header: "Espéces", type: "radio", name: "mode", value: "2"}
-                        ],
-                        buttons: [{value: "OK"}, {value: "Annule"}],
-                        success: function () {}
-                    });
-                    $.ajax({url: "ajax/enregistre_reglement.php",
-                        data: {'reg_joueurs_id': id,
-                            'reg_joueurs_regle': flag},
-                        type: "GET",
-                        success: function () {
-
-                        }
-                    });
+                    if (flag == 1) {
+                        //On enregistre le reglement ou pas
+                        $.msgBox({title: "Mode de r&eacute;glement",
+                            type: 'prompt',
+                            inputs: [
+                                {header: "Chéque", type: "radio", name: "mode", value: "1"},
+                                {header: "Espéces", type: "radio", name: "mode", value: "2"},
+                                {header: "Virement", type: "radio", name: "mode", value: "3"}
+                            ],
+                            buttons: [{value: "OK"}, {value: "Annule"}],
+                            success: function (result, values) {
+                                if (result == "OK") {
+                                    if ($("input[name='mode']:checked").length > 0) {
+                                        $.ajax({url: "ajax/enregistre_reglement.php",
+                                            data: {'reg_joueurs_id': id,
+                                                'reg_joueurs_regle': flag,
+                                                'reg_mode_reglement': $("input[name='mode']:checked").val()},
+                                            type: "GET",
+                                            success: function () {
+                                            }
+                                        });
+                                    } else {
+                                        //pas de mode de réglement saisi=>repasse en attente
+                                        $(".id_" + id).attr('src', "images/en_attente.png");
+                                        $this.attr('src', "images/en_attente.png");
+                                    }
+                                }
+                            }
+                        });
+                    } else {
+                        //on annule le réglement
+                        $.ajax({url: "ajax/enregistre_reglement.php",
+                            data: {'reg_joueurs_id': id,
+                                'reg_joueurs_regle': flag,
+                                'reg_mode_reglement': 0},
+                            type: "GET",
+                            success: function () {
+                            }
+                        });
+                    }
                 });
 //formulaire saisi delai convocation
                 $("#frm_change_delai").dialog({
@@ -545,7 +569,7 @@ include ("liste_joueurs.7_1.php");
 
     </head>
     <body>
-         <img src="images/wait.gif" style="width:7%;display:none"><!-- sert a pre-charger l'image -->
+        <img src="images/wait.gif" style="width:7%;display:none"><!-- sert a pre-charger l'image -->
         <?php include ("menu.5.1.php"); ?>
 
         Filtre :  <input type="radio" id="filtre" name="filtre" value="99" checked/>Tous&nbsp;

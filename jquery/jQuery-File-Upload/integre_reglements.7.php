@@ -33,7 +33,7 @@ foreach ($fichier as $e_fichier) {
     $f = fopen($Directory . "/" . $e_fichier, 'r');
 
    
-    while ($ligne = fgets($f)) {
+    while ($ligne = (fgets($f))) {
         if ($ligne != "") {
             $tab = explode(";", ($ligne));
 
@@ -44,7 +44,7 @@ foreach ($fichier as $e_fichier) {
                     if ($tab[0] != "Nom") {
                         list($j, $m, $y) = explode("/", $tab[5]);
                         $tab[5] = "$y-$m-$j";
-                        $tab_joueurs[] = array("reg_joueurs_nom" => $tab[0], "reg_joueurs_club" => $tab[1], "reg_joueurs_date" => $tab[5], "reg_joueurs_montant" => $tab[11] + 0, "reg_joueurs_regle" => 0);
+                        $tab_joueurs[] = array("reg_joueurs_nom" => $tab[0], "reg_joueurs_club" => $tab[1], "reg_joueurs_date" => $tab[5], "reg_joueurs_montant" => (float) $tab[11] , "reg_joueurs_regle" => 0);
                         $club = $tab[1];
                     }
                     break;
@@ -52,9 +52,9 @@ foreach ($fichier as $e_fichier) {
                     list($lib, $nbr_joueurs) = explode(":", trim($tab[0]));
                     list($lib, $total) = explode(":", trim($tab[1]));
                     list($lib, $deja_regle) = explode(":", trim($tab[2]));
-
-                    $tab_club = array("club" => $club, "nbr_joueur" => $nbr_joueurs + 0, "total" => $total + 0, "deja_regle" => $deja_regle + 0);
-                    $ok_paye = ($total + 0 == $deja_regle + 0);
+                    xdebug_break();
+                    $tab_club = array("club" => $club, "nbr_joueur" => $nbr_joueurs + 0, "total" => (float)$total, "deja_regle" => (float)($deja_regle));
+                    $ok_paye = ((float)$total  == (float) $deja_regle );
                     //   break;
                     //case 3://si mot 'Ville' alors on change de club =>enregistrement des infos
                     // if (strpos($tab[0], "Ville") >= 0) {

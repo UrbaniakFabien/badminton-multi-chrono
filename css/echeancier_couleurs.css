@@ -1,17 +1,13 @@
 .Couleur_texte { background-color:#010308;color:#010308;}
-.DD_S1 { background-color:#6ebd07;color:#010308;}
-.DD_S2 { background-color:#786ab5;color:#010308;}
-.DD_S3 { background-color:#77b176;color:#010308;}
-.DD_S4 { background-color:#08c945;color:#010308;}
-.DD_S5 { background-color:#42f086;color:#010308;}
-.DD_S6 { background-color:#9bff3d;color:#010308;}
-.DH_S1 { background-color:#4cd41c;color:#010308;}
-.DH_S2 { background-color:#8f62a1;color:#010308;}
-.DH_S3 { background-color:#8a1536;color:#010308;}
-.DH_S4 { background-color:#f0bcf2;color:#010308;}
-.DH_S5 { background-color:#da6ab9;color:#010308;}
-.DH_S6 { background-color:#ce958c;color:#010308;}
-.DH_S7 { background-color:#238632;color:#010308;}
+.DD_SERIE_1 { background-color:#96356c;color:#010308;}
+.DD_SERIE_2 { background-color:#406e81;color:#010308;}
+.DD_SERIE_3 { background-color:#c72ece;color:#010308;}
+.DD_SERIE_4 { background-color:#a7ec8b;color:#010308;}
+.DH_SERIE_1 { background-color:#8c829c;color:#010308;}
+.DH_SERIE_2 { background-color:#8977c6;color:#010308;}
+.DH_SERIE_3 { background-color:#13b22b;color:#010308;}
+.DH_SERIE_4 { background-color:#8fa0d1;color:#010308;}
+.DH_SERIE_5 { background-color:#730f52;color:#010308;}
 .PAUSE { background-color:#DCDCDC;color:#010308;}
 
                           #echeancier td {

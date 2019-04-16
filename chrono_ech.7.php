@@ -100,7 +100,7 @@ $str_lim_temps2 = "03:00";
 $terrains = "";
 $nbr_terrain = 1; //Nombre min terrain par defaut
 for ($i = 1; $i <= $max_terrains; $i++) {
-    $terrains.= '
+    $terrains .= '
     <div id="draggable_' . $i . '" class="draggableh draggable ui-widget-content non_u" style="display:none;" title="Pas de liste de joueurs">
     <input type="hidden" id="memo_temp' . $i . '" value=0 />
     <div class="match_h" >N&deg;&nbsp;<input id="match_' . $i . '" value=0 class="match" onclick="max_match(' . $i . ');" onchange="controle(this);"/></div> <div class="fin_h" id="fin_' . $i . '">00h00</div>
@@ -115,23 +115,23 @@ if ($num_titre > 0) {
     // en fonction de l'échéancier en cours
     //Lecture de l'horaire le plus tôt
     $sql = "select min(horaire) as min_horaire from echeancier where num_titre=" . $num_titre;
-    $result =exec_commande( $sql);
+    $result = exec_commande($sql);
     $nbr_terrain = 1; //Nombre de terrain min par défaut. Sera passé en parametre à la fonction de choix de nombre de terrain 
     $num_terrain = "";
     if ($data = mysqli_fetch_row($result)) {
         //Lecture de tous les matchs de cet horaire triés par ordre de n° match
         $sql = "select num_match from echeancier where horaire='" . $data[0] . "'and num_titre=" . $num_titre . " order by num_match;";
 
-        $result =exec_commande( $sql);
+        $result = exec_commande($sql);
         $nbr_terrain = mysqli_num_rows($result); //Nombre d'enregistrements = Nombre de terrains
         //On cherche tous les N° de match qui ne sont pas des pauses et pas deja joués et pas WO dans la limite du nombre de terrains
         $sql = "select num_match from echeancier 
                         where horaire>='" . $data[0] . "' and spe<>'Pause' and etat in (0,-1) and num_titre=" . $num_titre . " 
                         order by num_match limit " . $nbr_terrain . ";";
 
-        $result =exec_commande( $sql);
+        $result = exec_commande($sql);
         while ($data = mysqli_fetch_row($result)) {
-            $num_terrain.= $data[0] . ",";
+            $num_terrain .= $data[0] . ",";
         }
     }
 } else {
@@ -163,10 +163,10 @@ if ($num_titre > 0) {
     $formulaire_couleurs = "<table id='tableau_couleurs' style='margin:auto'><thead><tr><th>Tableau</th><th>Couleur</th></tr></thead><tbody>";
     foreach ($tab_couleur as $key => $e_tab_couleur) {
         if (($key != "PAUSE") && ($key != "horaire")) {
-            $formulaire_couleurs.="<tr><td>" . str_replace($chg_sign, $sign, $key) . "</td><td style='text-align:center;'><input size='3px'class='couleur' type='hidden' id='" . $key . "' name='" . $key . "' value='" . rgb2hex($e_tab_couleur["r"], $e_tab_couleur["g"], $e_tab_couleur["b"]) . "'>&nbsp;</td></tr>";
+            $formulaire_couleurs .= "<tr><td>" . str_replace($chg_sign, $sign, $key) . "</td><td style='text-align:center;'><input size='3px'class='couleur' type='hidden' id='" . $key . "' name='" . $key . "' value='" . rgb2hex($e_tab_couleur["r"], $e_tab_couleur["g"], $e_tab_couleur["b"]) . "'>&nbsp;</td></tr>";
         }
     }
-    $formulaire_couleurs.="</tbody></table>";
+    $formulaire_couleurs .= "</tbody></table>";
 
     /*     * *****************************************************************************
      * Test si existe une liste de joueurs pour cet échéancier
@@ -175,7 +175,7 @@ if ($num_titre > 0) {
             FROM joueurs
             WHERE num_titre=" . $num_titre . "
             LIMIT 1";
-    $result =exec_commande( $sql);
+    $result = exec_commande($sql);
     /*     * *****************************************************************************
      * Determine si une liste de joueurs existe
      * si oui on permet l'affichage de la liste des joueurs par terrain/match dans le client
@@ -197,7 +197,7 @@ $couleur_salle = "";
 $zoom = 1;
 if ($num_titre > 0) {
     $sql = "select * from tbl_config_chrono where num_titre=" . $num_titre;
-    $result =exec_commande( $sql);
+    $result = exec_commande($sql);
     if ($data = mysqli_fetch_array($result)) {
         $couleur_terrain_libre = $data["Conf_coul_libre"];
         $couleur_terrain_occupe = $data["Conf_coul_occup"];
@@ -357,8 +357,7 @@ if ($num_titre > 0) {
                                     .toggleClass("bouton_h", reponse[i].orientation == 'h');
                             $this.children("div:eq(4)").toggleClass("temps_v", reponse[i].orientation == 'v')
                                     .toggleClass("temps_h", reponse[i].orientation == 'h');
-                        }
-                        else {
+                        } else {
                             //Repositionnment de l'échéancier et de la salle
                             switch (reponse[i].num) {
                                 case "101" :
@@ -474,8 +473,7 @@ if ($num_titre > 0) {
                 var tmp = p_str.split(":");
                 if (tmp.length > 0) {
                     return (parseInt(tmp[0]) * 60) + parseInt(tmp[1]);
-                }
-                else {
+                } else {
                     return 0;
                 }
             }
@@ -538,8 +536,7 @@ if ($num_titre > 0) {
                     if ($("#verrou").button("option", "icons").primary == "ui-icon-unlocked") {
                         if ($thisParagraph.hasClass("draggablev")) {
                             count = 1;
-                        }
-                        else {
+                        } else {
                             count = 0;
                         }
                         $thisParagraph.toggleClass("draggablev", count == 0)
@@ -607,8 +604,7 @@ if ($num_titre > 0) {
                                 }
                                 if ((data == "2") || (data == "3")) {
                                     $("#reponse").val("");
-                                }
-                                else {
+                                } else {
                                     $("#reponse").val("O");
                                 }
                             }
@@ -655,8 +651,7 @@ if ($num_titre > 0) {
                         if (temps_sens == 0) {
                             zone_temp.html("00:00");
                             $("#memo_temp" + tmp[1]).val(0);
-                        }
-                        else {
+                        } else {
                             zone_temp.html(str_temps_2);
                             $("#memo_temp" + tmp[1]).val(temps_2);
                         }
@@ -691,8 +686,7 @@ if ($num_titre > 0) {
                                 $("#prompt").html("Le match " + id + " deja termin&eacute; !<br />Souhaitez vous mettre &agrave; jour l'heure de fin de match ?");
                                 $("#prompt-form").dialog("open");
 
-                            }
-                            else {
+                            } else {
                                 $("#reponse").val("O");
                             }
                         }
@@ -723,8 +717,7 @@ if ($num_titre > 0) {
                                     .css("color", "black");
                             $(this).parent().children("input:first").val("0");  //Remise à zero du chrono du terrain
 
-                        }
-                        else {
+                        } else {
                             $(this).parent().children("div:eq(4)").html(str_temps_2)
                                     .css("color", "black");
                             $(this).parent().children("input:first").val(temps_2);  //Remise à temps_2 du chrono du terrain
@@ -811,8 +804,7 @@ if ($num_titre > 0) {
                             })
 
                             return liste;
-                        }
-                        else {
+                        } else {
                             terrain.attr("title", "");
 
                             return "";
@@ -828,7 +820,7 @@ if ($num_titre > 0) {
                     var element = $(this);
                     if (element.hasClass("ui-draggable-disabled")) {
                         element.tooltip("open");
-                        return false
+                        return false;
                     }
                 });
 
@@ -879,7 +871,22 @@ echo $fonction_init_num_match;
                 /***********************************************************
                  * Pour ajouter les nouvelles options au menu par défaut
                  ***********************************************************/
-                $("#chrono_ech").html('<a href="#">Chrono & échéancier</a><ul><li><a href="#"><span onclick="affiche_stat();">Statistiques</span></li><li><a href="#">Configuration</a><ul><li><a href="#">Echeancier</a><ul><li><a href="#"><span onclick="change_couleur(this);" id="change_coul">En noir et blanc</span></a></li><li><a href="#"><span onclick="gestion_couleurs();" id="regenere_coul">Gestions Couleurs</span></a></li><li><a href="#"><span onclick="change_ech();" id="change_ech">Change Echéancier</span></a></li></ul></li><li><a href="#"><span onclick="go_couleur();">Chrono</span></a></li></ul></li></ul>');
+                $("#chrono_ech").html('<a href="#">Chrono & échéancier</a>\n\
+                                            <ul>\n\
+                                                <li><a href="#"><span onclick="affiche_stat();">Statistiques</span></li>\n\
+                                                <li><a href="#">Configuration</a>\n\
+                                                    <ul>\n\
+                                                        <li><a href="#">Echeancier</a>\n\
+                                                            <ul>\n\
+                                                                <li><a href="#"><span onclick="change_couleur(this);" id="change_coul">En noir et blanc</span></a></li>\n\
+                                                                <li><a href="#"><span onclick="gestion_couleurs();" id="regenere_coul">Gestions Couleurs</span></a></li>\n\
+                                                                <li><a href="#"><span onclick="change_ech();" id="change_ech">Change Echéancier</span></a></li>\n\
+                                                            </ul>\n\
+                                                        </li>\n\
+                                                        <li><a href="#"><span onclick="go_couleur();">Chrono</span></a></li>\n\
+                                                    </ul>\n\
+                                                </li>\n\
+                                            </ul>');
 
                 /***************************************************************
                  * Menu général
@@ -994,8 +1001,7 @@ echo $fonction_init_num_match;
                                 $("#draggable_" + tmp[1]).toggleClass("orange"); // limite 2 dépassée=>terrain clignote
 
                             }
-                        }
-                        else { //decompte du temps
+                        } else { //decompte du temps
                             temp = temp - 1;
                             $("#memo_temp" + tmp[1]).val(temp);
                             $("#affiche_temp_" + tmp[1]).html(formatSecondsAsTime(temp, "mm:ss"));
@@ -1070,8 +1076,7 @@ echo $fonction_init_num_match;
                             return false;
                         }
                     });
-                }
-                else {
+                } else {
                     // $(p_obj).parent().parent().removeClass("stop","start")
                     //                            .addClass("neutralise");
 
@@ -1206,8 +1211,7 @@ echo $fonction_init_num_match;
                     Mise_a_jour_echeancier(id, 1, num_terrain, heure + "h" + min);//mise a jour directe de l'échéancier affiché
                     //on reactive le son pour ce terrain
                     $("#memo_son" + id_obj).val(1);
-                }
-                else {
+                } else {
                     if (p_reponse == "oui") {
                         //Si dblclick sur heure de fin qui appel le formulaire
                         var o_terrain = $("#draggable_" + id_obj);
@@ -1220,8 +1224,7 @@ echo $fonction_init_num_match;
                         if (temps_sens == 0) {
                             o_terrain.children("div:eq(4)").html("00:00");
                             o_terrain.children("input:first").val("0"); //Remise à zero du chrono du terrain
-                        }
-                        else {
+                        } else {
                             o_terrain.children("div:eq(4)").html(str_temps_2);
                             o_terrain.children("input:first").val(temps_2); //Remise à temps_2 du chrono du terrain
                         }
@@ -1436,8 +1439,7 @@ echo $fonction_init_num_match;
                         $("#num_terrain_neutre").html(id_obj);
                         if (self.hasClass("neutralise")) {
                             $("#ok_neutralise").attr("checked", "checked");
-                        }
-                        else {
+                        } else {
                             $("#ok_neutralise").removeAttr("checked");
                         }
                         //Ouverture du formulaire
@@ -1481,8 +1483,7 @@ echo $fonction_init_num_match;
                 $("#salle").resizable();
                 if (existe_echeancier) {
                     $("#contenaire_echeancier").resizable();
-                }
-                else {
+                } else {
                     $("#contenaire_echeancier").hide();
                     $("#salle").css("height", "600px")
                             .css("width", "800px");
@@ -1529,8 +1530,7 @@ echo $fonction_init_num_match;
                             if (temps_sens == 0) {
                                 $this.children("input:first").val("0");//memo_temps
                                 $this.children("div:eq(4)").html("00:00");//affiche temps
-                            }
-                            else {
+                            } else {
                                 $this.children("input:first").val(temps_2);//memo_temps
                                 $this.children("div:eq(4)").html(str_temps_2);//affiche temps
                             }
@@ -1724,8 +1724,7 @@ echo $fonction_init_num_match;
                         $(this).button('option', 'text', "Echéancier en couleurs");
                         $("#noir_blanc span").html("Echéancier en couleurs");
                         $("#change_coul").html("En couleur");
-                    }
-                    else {
+                    } else {
                         $(this).button('option', 'text', "Echéancier en noir et blanc");
                         $("#noir_blanc span").html("Echéancier en noir et blanc");
                         $("#change_coul").html("En noir et blanc");
@@ -1838,8 +1837,7 @@ echo $fonction_init_num_match;
                     //En fonction de la coche on cache ou montre les pouces
                     if ($this.prop("checked") == true) {
                         $(".pouce").show();
-                    }
-                    else {
+                    } else {
                         $(".pouce").hide();
                     }
                 });
@@ -1895,8 +1893,7 @@ echo $fonction_init_num_match;
                             if (temps_sens == 0) {
                                 $this.children("input:first").val("0");//memo_temps
                                 $this.children("div:eq(4)").html("00:00");//affiche temps
-                            }
-                            else {
+                            } else {
                                 $this.children("input:first").val(temps_2);//memo_temps
                                 $this.children("div:eq(4)").html(reponse.Conf_tp2);//affiche temps
                             }
@@ -1965,8 +1962,7 @@ echo $fonction_init_num_match;
                                         dataType: 'json'}
                                     );
                                     $("#msg_pref").html("<span style='color:green;'>Préférences appliquées!</span>");
-                                }
-                                else {
+                                } else {
                                     $("#msg_pref").html("Choisissez la prérérence à appliquer !");
                                 }
                                 $("#msg_pref").show()
@@ -1994,8 +1990,7 @@ echo $fonction_init_num_match;
                                     sauve_config("pref_", texte);
                                     $("#msg_pref").html("<span style='color:green;'>Enregistrement OK !</span>");
 
-                                }
-                                else {
+                                } else {
                                     $("#msg_pref").html("Saisissez un nom pour la prérérence à enregistrer !");
 
                                 }
@@ -2014,8 +2009,7 @@ echo $fonction_init_num_match;
                                         url: 'ajax/efface_pref.php',
                                         data: {num_pref: num_pref}
                                     });
-                                }
-                                else {
+                                } else {
                                     $("#msg_pref").html("Choisissez la prérérence à effacer !")
                                             .show()
                                             .fadeOut(2000);
@@ -2086,8 +2080,7 @@ echo $fonction_init_num_match;
                         $("#btn_" + id_obj).removeAttr("disabled")
                                 .show();// Réactive le bouton
                         $("#pouce_" + id_obj).show();
-                    }
-                    else {
+                    } else {
                         if (self.hasClass("stop")) {  //passe en neutralise que si pas de match en cours sur le terrain
                             self.addClass("neutralise")
                                     .removeClass("stop", "go");
@@ -2109,8 +2102,7 @@ echo $fonction_init_num_match;
                         $(".horaire").each(function () {
                             $(this).html($(this).parent().attr("id"));
                         })
-                    }
-                    else {
+                    } else {
                         affiche_horaires_reels();
                     }
                 });
@@ -2121,7 +2113,7 @@ echo $fonction_init_num_match;
                     timer();
                 }
                 //affichage par ddéfaut du recalcul des tranches
-                 affiche_horaires_reels();
+                affiche_horaires_reels();
 
             });
             /*****************************************************************************
