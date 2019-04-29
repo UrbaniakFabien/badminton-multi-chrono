@@ -195,7 +195,7 @@ include ("liste_joueurs.7_1.php");
                     paging: "full_numbers",
                     language: {"url": "jquery/DataTables/language/fr_FR.txt"},
                     columnDefs: [
-                        {"bSortable": false, "bVisible": false, "aTargets": [0]}, //cache la colonne etat
+                        {"bSortable": false, "bVisible": false, "aTargets": [0<?php echo ($existe_reglement?'':',7'); ?>]}, //cache la colonne etat
                         {"sType": "num_match", "aTargets": [3]}  //tri sur N° de match par fonction perso
                     ],
                     dom: 'W<"clear">lfrtip',

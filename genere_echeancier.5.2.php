@@ -110,9 +110,10 @@ if ($result) {
                     $tableau.="etat_" . $data["etat"];
                 }
 
-                $tableau.="' >
-                                        Match N° " . $data["num_match"] . "<br />";
+                $tableau.="' >";
+                                
                 if (strpos($data["spe"], "Pause") === false) {
+                    $tableau .="        Match N° " . $data["num_match"] . "<br />";
                     $tableau.="<span style='display:";
                     if ($data["terrain"] > 0) {
                         $tableau.="block";

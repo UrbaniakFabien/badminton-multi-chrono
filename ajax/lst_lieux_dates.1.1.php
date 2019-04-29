@@ -29,20 +29,19 @@ if ($format == 0) {
 }
 //Si pas de cible alors on ne prend que la table titre
 if ($cible == "") {
-    $sql.="FROM `titre` " . $filtre . " ORDER BY lieu_date";
+    $sql .= "FROM `titre` " . $filtre . " ORDER BY lieu_date";
 } else {
     //Cible=ech =>on regarde si les titres ont des lignes d'échéancier
     if ($cible == "ech") {
-        $sql.="FROM `titre` 
+        $sql .= "FROM `titre` 
                       inner join echeancier on (titre.num_titre=echeancier.num_titre) " . $filtre . " group by lieu_date,titre.num_titre";
     } else {
         //sinon on cherche si les titre on une liste de joueurs
-        $sql.="FROM titre inner join joueurs on (titre.num_titre=joueurs.num_titre) " . $filtre . " group by lieu_date,titre.num_titre";
+        $sql .= "FROM titre inner join joueurs on (titre.num_titre=joueurs.num_titre) " . $filtre . " group by lieu_date,titre.num_titre";
     }
 }
-$result =exec_commande($sql);
-$donnee = array();
-/* Ajout du choix 'Tous' si demande de RAZ */
+$result = exec_commande($sql);
+$donnee = []; /* Ajout du choix 'Tous' si demande de RAZ */
 if ($action == "raz") {
     if ($format == 0) {
         $donnee[] = array("id" => "0", "value" => "Tous");
@@ -51,15 +50,17 @@ if ($action == "raz") {
     }
 }
 /* Ajout du choix 'Aucun' si demande de Liste echeancier */
-if (($action == "lst") and ($cible == "ech")) {
+if (($action == "lst") and ( $cible == "ech")) {
     if ($format == 0) {
         $donnee[] = array("id" => "-1", "value" => "Aucun");
     } else {
         $donnee[] = array("value" => "-1", "label" => "Aucun");
     }
 }
-while ($data = mysqli_fetch_assoc($result)) {
-    $donnee[] = $data;
+if ($result != false) {
+    while ($data = mysqli_fetch_assoc($result)) {
+        $donnee[] = $data;
+    }
 }
 echo json_encode($donnee);
-?>
+

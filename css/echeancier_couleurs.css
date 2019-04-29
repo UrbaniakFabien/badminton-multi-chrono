@@ -1,13 +1,10 @@
 .Couleur_texte { background-color:#010308;color:#010308;}
-.DD_SERIE_1 { background-color:#96356c;color:#010308;}
-.DD_SERIE_2 { background-color:#406e81;color:#010308;}
-.DD_SERIE_3 { background-color:#c72ece;color:#010308;}
-.DD_SERIE_4 { background-color:#a7ec8b;color:#010308;}
-.DH_SERIE_1 { background-color:#8c829c;color:#010308;}
-.DH_SERIE_2 { background-color:#8977c6;color:#010308;}
-.DH_SERIE_3 { background-color:#13b22b;color:#010308;}
-.DH_SERIE_4 { background-color:#8fa0d1;color:#010308;}
-.DH_SERIE_5 { background-color:#730f52;color:#010308;}
+.MX_SERIE1 { background-color:#7be4f8;color:#010308;}
+.MX_SERIE_2 { background-color:#28d251;color:#010308;}
+.MX_SERIE_3 { background-color:#947f14;color:#010308;}
+.MX_SERIE_4 { background-color:#0d2dd5;color:#010308;}
+.MX_SERIE_5 { background-color:#93007d;color:#010308;}
+.MX_SERIE_6 { background-color:#3d3c9c;color:#010308;}
 .PAUSE { background-color:#DCDCDC;color:#010308;}
 
                           #echeancier td {

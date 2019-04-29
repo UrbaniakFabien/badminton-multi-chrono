@@ -44,29 +44,31 @@ if ($num_rows > 0) {
     while ($data = mysqli_fetch_assoc($result)) {
         $reponse["encours"] = $data;
     }
-}
 
-// recherche du plus grand+1 qui n'est pas une pause
-$i = $reponse["encours"]["Num_match"] + 1;
-$pause = true;
-While ($pause) {
-    $pause = false;
-    $sql = "SELECT Num_match, terrain, etat, heure_debut, heure_fin ,spe, tableau
+
+// recherche du plus grand+1 qui n'est pas une Spe = pause ou un WO (etat=3)
+    $i = $reponse["encours"]["Num_match"] + 1;
+    $pause = true;
+    While ($pause) {
+        $pause = false;
+        $sql = "SELECT Num_match, terrain, etat, heure_debut, heure_fin ,spe, tableau
         FROM echeancier 
         WHERE num_titre=" . $num_titre . " 
             and num_match=$i";
 
-    $result = exec_commande($sql);
-    $num_rows = mysqli_num_rows($result);
-    if ($data = mysqli_fetch_assoc($result)) {
-        if ($data["spe"] == 'Pause') {
-            $i++;
-            $pause = true;
+        $result = exec_commande($sql);
+        $num_rows = mysqli_num_rows($result);
+        if ($data = mysqli_fetch_assoc($result)) {
+            if (($data["spe"] == 'Pause') || ($data["etat"] == 3 )) {
+                $i++;
+                $pause = true;
+            }
         }
     }
+    $reponse["encours"]["Num_match"] = (string) ($i - 1); //N° du plus grand match en cours ou de la pause qui le suit
+} else {
+    $reponse["encours"] = ["Num_match" => $dernier_match]; //il n'y a plus ou pas de match en cours
 }
-$reponse["encours"]["Num_match"] = (string)($i-1); //N° du plus grand match en cours ou de la pause qui le suit
-
 //Pour connaitre les matchs en attente dans le cas où on a avancé le lancement  de certain match
 $sql = "SELECT num_match 
       FROM echeancier

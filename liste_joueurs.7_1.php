@@ -8,26 +8,26 @@
  * ***************************************************************************** */
 //TODO table des décalages par id tournoi en minute pour le calcul des heures de convocation en fonction de l'heure de match
 
-$result =exec_commande( "SELECT * from titre");
+$result = exec_commande("SELECT * from titre");
 $tab_decalage = array();
 $tab_frm_decalage = "<table><thead><tr><th>Lieu et date</td><th>Délai</th></tr></thead><tbody>";
 while ($data = mysqli_fetch_array($result)) {
     if ($data["decalage_horaire_convocation"] != "") {
-        list($h, $m) = explode("h", strtolower( $data["decalage_horaire_convocation"]));
+        list($h, $m) = explode("h", strtolower($data["decalage_horaire_convocation"]));
         $data["decalage_horaire_convocation"] = ($h * 60) + $m;
     } else {
-        $data["decalage_horaire_convocation"] = 30;//valeur par defaut 30 min
+        $data["decalage_horaire_convocation"] = 30; //valeur par defaut 30 min
     }
 
     $tab_decalage[$data["num_titre"]] = $data;
-    $tab_frm_decalage .="<tr id='id_{$data[0]}'><td>$data[1]</td><td><input name='delai_{$data[0]}' value='$data[2]'></td></tr>";
+    $tab_frm_decalage .= "<tr id='id_{$data[0]}'><td>$data[1]</td><td><input name='delai_{$data[0]}' value='$data[2]'></td></tr>";
 }
-$tab_frm_decalage .="</tbody></table>";
+$tab_frm_decalage .= "</tbody></table>";
 
 
 $entete = "<table id='liste'>
          <thead><tr>";
-$result =exec_commande( "show columns from joueurs");
+$result = exec_commande("show columns from joueurs");
 if (!$result) {
     $entete .= "<th>Pas d'information à traiter. Importez un fichier</th></tr></thead></table>";
     $corps = "";
@@ -55,7 +55,7 @@ if (!$result) {
     $sql = 'SELECT `Num`,`Joueur`,`Licences`,`Matchs`,`Salle`,`Convoqué le`,"00h00" as horaire_convocation, False as `Réglement` ,num_titre,`etat`, commentaire FROM joueurs order by num';
 
 // on envoie la requête
-    $req =exec_commande( $sql) or die('Erreur SQL !<br>' . $sql . '<br>' . mysqli_error());
+    $req = exec_commande($sql) or die('Erreur SQL !<br>' . $sql . '<br>' . mysqli_error());
 
     $corps = "</thead><tbody>";
     while ($data = mysqli_fetch_assoc($req)) {
@@ -94,7 +94,7 @@ if (!$result) {
 					AND FIND_IN_SET (num_match,"' . $lst_match . '")>0';
         //Recherche match du joueur dans l'échéancier
         // et traitement si existe
-        $result =exec_commande( $sql);
+        $result = exec_commande($sql);
         if ($data_ = mysqli_fetch_array($result)) {
             $decalage = $tab_decalage[$data["num_titre"]]["decalage_horaire_convocation"];
             if ($data_["horaire_convocation"] != "") {
@@ -112,35 +112,37 @@ if (!$result) {
         //FU
         //07/2017
         $pos = strpos($data["Joueur"], "/");
-		if ($pos>0)
-		{        $temp = substr($data["Joueur"], 0, $pos);
-			$pos = strrpos($temp, "-");
+        if ($pos > 0) {
+            $temp = substr($data["Joueur"], 0, $pos);
+            $pos = strrpos($temp, "-");
 
-			$clef_nom = substr($data["Joueur"], 0, $pos);
-	}
-	else {
-		$clef_nom = "";
-		$sep = "";
-		$temp_ = explode("-",$data["Joueur"]);
-		for ($i=0;$i<count($temp_)-2;$i++) {
-			$clef_nom .= $sep  . $temp_[$i];
-			$sep = '-';
-		}
-	}
-        $clef_nom=utf8_decode($clef_nom);
+            $clef_nom = substr($data["Joueur"], 0, $pos);
+        } else {
+            $clef_nom = "";
+            $sep = "";
+            $temp_ = explode("-", $data["Joueur"]);
+            for ($i = 0; $i < count($temp_) - 2; $i++) {
+                $clef_nom .= $sep . $temp_[$i];
+                $sep = '-';
+            }
+        }
+        $clef_nom = utf8_decode($clef_nom);
         $tab_joueur = explode("(", $data["Joueur"]);
         list($club, $tmp) = explode("-", $tab_joueur[1]);
         $sql = "SELECT reg_joueurs_regle,reg_joueurs_id 
                 FROM tbl_regl_joueurs 
-                WHERE reg_joueurs_nom = '{$clef_nom}' ";//AND reg_joueurs_club = '{$club}' ";
+                WHERE reg_joueurs_nom = '{$clef_nom}' "; //AND reg_joueurs_club = '{$club}' ";
 
-        $result =exec_commande( $sql);
-        if (($result->num_rows>0)) {
+        $result = exec_commande($sql);
+        $existe_reglement = true;
+        if (($result->num_rows > 0)) {
             while ($data_regl = mysqli_fetch_row($result)) {
-
-                $data["Réglement"] = "<div                                                                   style='text-align:center'><img  src='images/" . ($data_regl[0] == 1 ? "regle.png" : "en_attente.png") . "' style='width:10%;' class='reglement id_{$data_regl[1]}' data-id_reglement='{$data_regl[1]}'/></div>";
+                $data["Réglement"] = "<div style='text-align:center'>
+                                       <img  src='images/" . ($data_regl[0] == 1 ? "regle.png" : "en_attente.png") . "' style='width:10%;' class='reglement id_{$data_regl[1]}' data-id_reglement='{$data_regl[1]}'/>
+                                      </div>";
             }
-        }else {
+        } else {
+            $existe_reglement = false;
             $data["Réglement"] = $clef_nom;
         }
 
@@ -171,4 +173,3 @@ $formulaire = '
 </div>
 ';
 $formulaire_reglement = '<div id="frm_reglement"><div id="info_reglement"></div></div>';
-        
