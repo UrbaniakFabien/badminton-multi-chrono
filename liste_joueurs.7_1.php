@@ -9,7 +9,10 @@
 //TODO table des décalages par id tournoi en minute pour le calcul des heures de convocation en fonction de l'heure de match
 
 $result = exec_commande("SELECT * from titre");
-$tab_decalage = array();
+$tab_decalage = [];
+//initialisation flag existe_reglement
+$existe_reglement = false;
+//formulaire saisie/modification décalage convocation/heure match
 $tab_frm_decalage = "<table><thead><tr><th>Lieu et date</td><th>Délai</th></tr></thead><tbody>";
 while ($data = mysqli_fetch_array($result)) {
     if ($data["decalage_horaire_convocation"] != "") {
@@ -24,7 +27,7 @@ while ($data = mysqli_fetch_array($result)) {
 }
 $tab_frm_decalage .= "</tbody></table>";
 
-
+//tableau liste des joueurs
 $entete = "<table id='liste'>
          <thead><tr>";
 $result = exec_commande("show columns from joueurs");
@@ -41,10 +44,14 @@ if (!$result) {
             $entete .= "<th>" . $row["Field"] . "</th>";
         }
     }
-    //Jout de la colonne 'heure de convocation' dans le tableau 
+    //ajout de la colonne 'heure de convocation' et reglement dans le tableau 
     //FU
     //04/2015
     //$nb_col--;
+    //
+    //nb : la colonne reglement est cachée via datatable si pas de fichier réglement
+    //FUR
+    //04/2019
     $entete .= "<th>Heure de convocation</th><th>Réglement</th>";
 
     $entete .= "</tr>";
@@ -60,7 +67,7 @@ if (!$result) {
     $corps = "</thead><tbody>";
     while ($data = mysqli_fetch_assoc($req)) {
         $num = $data["Num"];
-        $corps .= "<tr id='num" . $num . "'  class='";
+        $corps .= "<tr id='num$num'  class='";
         switch ($data["etat"]) {
             case 1:
             case 2:
@@ -71,7 +78,7 @@ if (!$result) {
                 $corps .= "etat0";
         }
         $corps .= "' title='" . $data["commentaire"] . "' commentaire='" . $data["commentaire"] . "'>
-      <td id='etatnum" . $num . "'>";
+      <td id='etatnum$num'>";
         if ($data["etat"] == "") {
             $corps .= "0";
         } else {
