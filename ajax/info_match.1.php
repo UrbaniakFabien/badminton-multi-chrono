@@ -69,6 +69,8 @@ if ($num_rows > 0) {
 } else {
     $reponse["encours"] = ["Num_match" => $dernier_match]; //il n'y a plus ou pas de match en cours
 }
+
+
 //Pour connaitre les matchs en attente dans le cas où on a avancé le lancement  de certain match
 $sql = "SELECT num_match 
       FROM echeancier
@@ -97,6 +99,7 @@ $reponse["en_attente"] = $liste;
 //si on est en fin de tournoi =>pas de match aprés le dernier !
 if ($dernier_match == $reponse["encours"]["Num_match"]) {
     $reponse["encours"] = ["Num_match" => "Aucun"];
+    $reponse["en_attente"] ="";
 }
 //Renvoi du tableau vers la page cliente
 echo json_encode($reponse);
