@@ -82,9 +82,9 @@ $sql = "SELECT max(num_match) as sortie FROM `echeancier`
 	WHERE tableau like 'Poule%' and num_titre=$num_titre
 	group by num_titre, spe";
 $result = exec_commande($sql);
-$tab_sortie = "";
+$tab_sortie = ";";
 while ($data = mysqli_fetch_assoc($result)) {
-    $tab_sortie .= $data["sortie"] . ";"; //chaine des N° match sortie de poule
+    $tab_sortie  .= $data["sortie"] .";"; //chaine des N° match sortie de poule
 }
 
 // on crée la requête SQL avec le N° choisi
@@ -130,7 +130,7 @@ if ($result) {
                 if (strpos($data["spe"], "Pause") === false) {
                     $tableau .= "        ";
                     //Si match de sortie de poule alors étoile devant libelle
-                    if (strpos($tab_sortie, $data["num_match"] . ";") !== false) {
+                    if (strpos($tab_sortie, ";" .$data["num_match"] . ";") !== false) {
                         $tableau .= "<img src='images/etoile.png' style='width:10%'>";
                     } else {
                         $tableau .= " ";
