@@ -94,7 +94,21 @@ include ("liste_joueurs.7_1.php");
                 }
                 return ((x < y) ? 1 : ((x > y) ? -1 : 0));
             };
-            
+             //FUR
+            //11/2019
+            //filtre spécifique sur état des joueurs (99-tous/0->en attente/1->present/2->WO/3->absent autorisé
+            $.fn.dataTable.ext.search.push(
+                    function (settings, data, dataIndex) {
+                        var filtre = parseFloat($('input[type=radio][name=filtre]:checked').attr('value')) || 0; //Retourne la valeur du bouton radio selectionné
+                        var etat = parseFloat(oTable.row(dataIndex).data()[0]) || 0; // etat de la ligne
+
+                        if ((etat == filtre) || (filtre == 99))
+                        {
+                            return true;
+                        }
+                        return false;
+                    }
+            );
             function callComplete(reponse) {
                 /*Mise à jour du tableau si modification de la base
                  reponse contient le Num et l'état des lignes modifiées
@@ -120,7 +134,7 @@ include ("liste_joueurs.7_1.php");
                     }
                 }
                 // re-dessine le tableau sans toucher l'affichage de la pagination en cours    
-                oTable.draw('page');
+                oTable.draw('full-hold');
                 // Relance la mise a jour 
                 var t = setTimeout("connect();", 15 * 1000);   //Appel Temporisé
             }
@@ -174,14 +188,15 @@ include ("liste_joueurs.7_1.php");
                             alert("Une anomalie s'est produite : Pas de  mise à jour posssible !");
                         },
                         success: function () {
-                            $thisParagraph.toggleClass("etat1", count == 1)
+                            $thisParagraph.toggleClass("etat0", count == 0)
+                                    .toggleClass("etat1", count == 1)
                                     .toggleClass("etat2", count == 2)
                                     .toggleClass("etat3", count == 3);
                             // Mise a jour de l'état
                             oTable.row(aPos).data()[0]=count;
                             // re-dessine le tableau sans toucher l'affichage de la pagination en cours    
                             
-                            oTable.draw('page');
+                            oTable.draw('full-hold');
                         }
                     });
 
@@ -200,7 +215,7 @@ include ("liste_joueurs.7_1.php");
                     ],
                     dom: 'W<"clear">lfrtip',
                     "oColumnFilterWidgets": {
-                        "aiExclude": [0, 1, 2, 3,7]
+                        "aiExclude": [ 0,1, 2, 3,7]
                     },
                     order: [[1, "asc"]], //Tri par défaut sur le nom
                     initComplete: function () {
@@ -419,11 +434,7 @@ include ("liste_joueurs.7_1.php");
 
 
             function filtre_tableau(filtre) {
-                var test = (filtre != "99");
-                if (!test) {
-                    filtre = "";
-                }
-                oTable.column(0).search(filtre).draw('page');
+               oTable.draw('full-hold');
             }
 
 
